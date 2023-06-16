@@ -1,10 +1,15 @@
+import bodyParser from 'body-parser';
 import express, { Express, Request, Response } from 'express';
 import mongoose from 'mongoose';
+import { ArticleDto } from './articles/Article.dto';
+import { ArticleModel } from './articles/Article.model';
 
 
 
 const app: Express = express();
 const port = 3000;
+
+app.use(bodyParser.json());
 
 
 app.get('/', (req: Request, res: Response) => {
@@ -26,6 +31,19 @@ app.get('/articles/:slug', (req: Request, res: Response) => {
 
 app.get('/articles', (req: Request, res: Response) => {
   res.send('Articles-list page');
+});
+
+app.post('/articles', async ({ body }: Request<{}, {}, ArticleDto>, res: Response) => {
+
+  const result = await ArticleModel.create({
+    title: body.title,
+    text: body.text,
+    description: body.description
+  });
+ 
+  res.send({
+    data: result
+  })
 });
 
 
