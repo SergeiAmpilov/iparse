@@ -5,12 +5,10 @@ import { ArticleDto } from './articles/Article.dto';
 import { ArticleModel } from './articles/Article.model';
 
 
-
 const app: Express = express();
 const port = 3000;
 
 app.use(bodyParser.json());
-
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Main page');
@@ -42,7 +40,7 @@ app.post('/articles', async ({ body }: Request<{}, {}, ArticleDto>, res: Respons
   });
  
   res.send({
-    data: result
+    ok: result
   })
 });
 
