@@ -28,8 +28,22 @@ app.set('view engine', 'hbs');
 app.set('views', './views');
 
 app.get('/', (req: Request, res: Response, next: NextFunction) => {
-  res.render('index', {});
+  res.render('index', {
+    title: 'Услуги парсинга веб-сайтов',
+    description: 'Услуги по парсингу веб-сайтов под заказ'
+  });
 });
+
+app.get('/articles', (req: Request, res: Response, next: NextFunction) => {
+  res.render('articles', {
+    title: 'Статьи - Парсинг веб-сайтов',
+    description: 'Статьи о парсинге веб-сайтов',
+    articles: [],
+  });
+});
+
+
+
 
 /*
 app.get('/services/:slug', (req: Request, res: Response) => {
@@ -63,8 +77,6 @@ app.post('/articles', async ({ body }: Request<{}, {}, ArticleDto>, res: Respons
 });
 */
 
-
-
 async function start() {
   await mongoose.connect('mongodb://localhost:27017/parsedb');
 
@@ -72,6 +84,5 @@ async function start() {
     console.log(`Server has been started at http://localhost:${PORT}/`);
   })
 }
-
 
 start();
