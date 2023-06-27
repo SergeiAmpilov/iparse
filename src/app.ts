@@ -99,7 +99,7 @@ app.post('/articles', async ({ body }: Request<{}, {}, ArticleDto>, res: Respons
 */
 
 async function start() {
-  await mongoose.connect('mongodb://localhost:27017/parsedb');
+  await mongoose.connect(`mongodb://localhost:27017/${DB_NAME}`);
 
   app.listen(PORT, () => {
     console.log(`Server has been started at http://localhost:${PORT}/`);
