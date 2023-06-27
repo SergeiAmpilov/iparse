@@ -1,48 +1,17 @@
     <section class="articles-list">
       <div class="container">
-        <h1>Детальная страница со статьей - {{ slug }}</h1>
+        <h1>{{ cardTitle }}</h1>
         <div class="articles__section">
-          26 Июня 2023
+          {{ cardDateCreate }}
+          {{#if cardTags.length}}
           |
-          <span class="articles__tag">Парсинг</span>
-          <span class="articles__tag">Законодательство</span>
-          <span class="articles__tag">Веб</span>
+            {{#each cardTags}}
+              <span class="articles__tag">{{ this }}</span>
+            {{/each}}
+          {{/if}}
         </div>
         <p class="articles__description">
-          Amet minim mollit non deserunt ullamco 
-          est sit aliqua dolor do amet sint. Velit 
-          officia consequat duis enim velit mollit. 
-          Exercitation veniam consequat sunt nostrud amet.
-        </p>
-        <p class="articles__description">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-          Nesciunt magnam atque et alias. Dicta debitis aut, ullam quaerat 
-          sapiente iusto cupiditate eius rem amet eos qui repudiandae libero 
-          quibusdam explicabo natus, perferendis nisi suscipit deserunt 
-          dolorum ratione beatae. Dolore, ipsa? Saepe, vel. 
-          Ullam consequuntur quisquam in id asperiores, expedita, sed adipisci 
-          quae nobis cupiditate aut possimus! Nostrum nam sint minus dolore, 
-          ipsum maiores beatae dolor harum repellendus quam ut dolorum quisquam 
-          accusantium voluptatum iusto iure vero est voluptatem quaerat quos. 
-          Quisquam nemo perferendis sit voluptates quaerat eaque provident 
-          tempora! Ipsum vitae non ipsa ea voluptas? Labore quasi delectus 
-          architecto eaque voluptate facere sed similique. Quod ducimus eaque 
-          natus harum velit ex atque tenetur, cum consectetur hic aspernatur 
-          modi alias repudiandae eum soluta iste rem vel tempore non? Consectetur 
-          possimus enim dolore odio! Quo, non placeat neque distinctio 
-          quibusdam dicta, aspernatur eius tempore error quod quis ipsa aliquid 
-          necessitatibus in eos est, accusantium quasi. Qui laborum autem 
-          eveniet voluptatem sequi tempora, exercitationem voluptatibus iusto 
-          doloribus quisquam corrupti accusamus amet et facilis deserunt, 
-          aliquam facere, voluptas sint deleniti impedit. Fugit, eos 
-          eligendi? Quasi molestias similique voluptates porro corrupti 
-          enim obcaecati placeat, ea cupiditate debitis numquam rerum a voluptas. 
-          Dicta, obcaecati fugiat? At repellat vero atque tempore? Quod 
-          nisi ipsa possimus, placeat porro ducimus ratione quae quos. Tenetur 
-          laudantium quod velit recusandae ex corrupti eum beatae iusto, itaque 
-          nam laboriosam? Maxime aut consequatur numquam vero iure quasi assumenda 
-          debitis ea neque ex, architecto tempora. Nemo, molestiae dicta 
-          reprehenderit suscipit minima officia iure odit?
+          {{ cardText }}
         </p>
         <a href="/articles" class="articles__head_link">&#8592; Назад</a>
       </div>

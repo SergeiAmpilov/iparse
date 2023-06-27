@@ -54,18 +54,22 @@ app.get('/', async (req: Request, res: Response, next: NextFunction): Promise<vo
 });
 
 
-app.get('/articles/:slug', (req: Request, res: Response, next: NextFunction) => {
+app.get('/articles/:slug', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
   const slug = req.params?.slug;
+  const cardData = await ArticleModel.find({ slug });
 
-  if (typeof slug !== 'undefined') {
+  if (cardData[0]) {
     res.render('articledetail', {
-      title: 'Статья детально - Парсинг',
-      description: 'Детальная страница статьи о парсинге сайтов',
-      slug: slug,
+      title: cardData[0].title,
+      description: `Статья ${cardData[0].title}`,
+      cardTitle: cardData[0].title,
+      cardDateCreate: new Date(cardData[0].dateCreate).toLocaleString(),
+      cardText: cardData[0].text,
+      cardTags: cardData[0].tags      
     });
   }
-
+  
 });
 
 app.get('/articles', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
