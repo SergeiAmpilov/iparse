@@ -1,8 +1,9 @@
 import bodyParser from 'body-parser';
-import express, { Express, Request, Response } from 'express';
+import express, { Express, NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
+import { engine } from 'express-handlebars';
 import { ArticleDto } from './articles/Article.dto';
 import { ArticleModel } from './articles/Article.model';
 
@@ -19,8 +20,15 @@ app.use(
   express.static(path.join(path.dirname(__dirname), 'public' ))
 );
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Main page');
+app.engine('hbs', engine({
+  defaultLayout: 'main',
+  extname: 'hbs'
+}));
+app.set('view engine', 'hbs');
+app.set('views', './views');
+
+app.get('/', (req: Request, res: Response, next: NextFunction) => {
+  res.render('index', {});
 });
 
 /*
@@ -61,7 +69,7 @@ async function start() {
   await mongoose.connect('mongodb://localhost:27017/parsedb');
 
   app.listen(PORT, () => {
-    console.log(`Server has been started at http://localhost:${PORT}/!`);
+    console.log(`Server has been started at http://localhost:${PORT}/`);
   })
 }
 
