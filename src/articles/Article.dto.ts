@@ -1,5 +1,6 @@
 export interface ArticleDto {
+  slug: String,
   title: String;
   text: String;
-  description: String;
+  tags?: String[];
 }
