@@ -68,11 +68,22 @@ app.get('/articles/:slug', (req: Request, res: Response, next: NextFunction) => 
 
 });
 
-app.get('/articles', (req: Request, res: Response, next: NextFunction) => {
+app.get('/articles', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+
+  const list = await ArticleModel.find({}).sort({'dateCreate': -1}).limit(8);  
+
   res.render('articles', {
     title: 'Статьи - Парсинг веб-сайтов',
     description: 'Статьи о парсинге веб-сайтов',
-    articles: [],
+    articles: list.map( (el) => {
+      return {
+        cardSlug: el.slug,
+        cardDateCreate: new Date(el.dateCreate).toLocaleString(),
+        cardTitle: el.title,
+        cardText: trunc(el.text, 60),
+        cardTags: el.tags
+      };
+    }),
   });
 });
 

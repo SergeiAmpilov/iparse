@@ -3,15 +3,12 @@
     </div>
     <section class="articles-list">
       <div class="container">
-        <ul class="articles__list">
-          {{> articlecard }}
-          {{> articlecard }}
-          {{> articlecard }}
-          {{> articlecard }}
-          {{> articlecard }}
-          {{> articlecard }}
-          {{> articlecard }}
-          {{> articlecard }}
-        </ul>
+        {{#if articles.length}}
+          <ul class="articles__list">
+            {{#each articles}}
+              {{> articlecard }}
+            {{/each}}
+          </ul>
+        {{/if}}
       </div>
     </section>

@@ -1,19 +1,18 @@
 <li class="articles__card">
   <h3 class="title3">
-    Making a design system from scratch
+    {{ cardTitle }}
   </h3>
   <div class="articles__section">
-    26 Июня 2023
-    |
-    <span class="articles__tag">Парсинг</span>
-    <span class="articles__tag">Законодательство</span>
-    <span class="articles__tag">Веб</span>
+    {{ cardDateCreate }}
+    {{#if cardTags.length}}
+      |
+      {{#each cardTags}}
+        <span class="articles__tag">{{ this }}</span>
+      {{/each}}
+    {{/if}}
   </div>
   <p class="articles__description">
-    Amet minim mollit non deserunt ullamco 
-    est sit aliqua dolor do amet sint. Velit 
-    officia consequat duis enim velit mollit. 
-    Exercitation veniam consequat sunt nostrud amet.
+    {{ cardText }}
   </p>
-  <a href="/articles/detail" class="articles__head_link">Далее 	&#8594;</a>
+  <a href="/articles/{{cardSlug}}" class="articles__head_link">Далее 	&#8594;</a>
 </li>
