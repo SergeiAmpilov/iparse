@@ -69,7 +69,7 @@ app.get('/articles/:slug', async (req: Request, res: Response, next: NextFunctio
       cardTags: cardData[0].tags      
     });
   }
-  
+
 });
 
 app.get('/articles', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -91,7 +91,7 @@ app.get('/articles', async (req: Request, res: Response, next: NextFunction): Pr
   });
 });
 
-app.post('/articles', async ({ body }: Request<{}, {}, ArticleDto>, res: Response) => {
+app.post('/articles', async ({ body }: Request<{}, {}, ArticleDto>, res: Response): Promise<void> => {
 
   const result = await ArticleModel.create({
     slug: body.slug,
