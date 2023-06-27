@@ -7,6 +7,7 @@ import { engine } from 'express-handlebars';
 
 import { ArticleDto } from './articles/Article.dto';
 import { ArticleModel } from './articles/Article.model';
+import { trunc } from './functions/Truncate.function';
 
 dotenv.config();
 const { PORT = 3002}  = process.env;
@@ -33,10 +34,22 @@ app.engine('hbs', engine({
 app.set('view engine', 'hbs');
 app.set('views', './views');
 
-app.get('/', (req: Request, res: Response, next: NextFunction) => {
+app.get('/', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+
+  const list = await ArticleModel.find({}).sort({'dateCreate': -1}).limit(2);  
+
   res.render('index', {
     title: 'Услуги парсинга веб-сайтов',
-    description: 'Услуги по парсингу веб-сайтов под заказ'
+    description: 'Услуги по парсингу веб-сайтов под заказ',
+    articles: list.map( (el) => {
+      return {
+        cardSlug: el.slug,
+        cardDateCreate: new Date(el.dateCreate).toLocaleString(),
+        cardTitle: el.title,
+        cardText: trunc(el.text, 60),
+        cardTags: el.tags
+      };
+    })
   });
 });
 
@@ -63,41 +76,23 @@ app.get('/articles', (req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-
-
-
-
-/*
-app.get('/services/:slug', (req: Request, res: Response) => {
-  res.send(`Service detail page with slug ${req.params?.slug}`);
-});
-
-app.get('/services', (req: Request, res: Response) => {
-  res.send('Service-list page');
-});
-
-
-app.get('/articles/:slug', (req: Request, res: Response) => {
-  res.send(`Article detail page with slug ${req.params?.slug}`);
-});
-
-app.get('/articles', (req: Request, res: Response) => {
-  res.send('Articles-list page');
-});
-
 app.post('/articles', async ({ body }: Request<{}, {}, ArticleDto>, res: Response) => {
 
   const result = await ArticleModel.create({
+    slug: body.slug,
     title: body.title,
     text: body.text,
-    description: body.description
+    tags: 
+      typeof body.tags === 'string'
+      ? body.tags.split(',').map( e => e.trim() )
+      : []
   });
  
   res.send({
     ok: result
   })
 });
-*/
+
 
 async function start() {
   await mongoose.connect(`mongodb://localhost:27017/${DB_NAME}`);

@@ -15,53 +15,40 @@
         <img src="images/candy5.jpg" alt="web-parsing" class="promo__img">
       </section>
     </div>
-    <section class="articles">
-      <div class="container">
-        <div class="articles__head">
-          <h2 class="title2">
-            Статьи
-          </h2>
-          <a href="/articles" class="articles__head_link">Ещё</a>
+    {{#if articles.length}}
+      <section class="articles">
+        <div class="container">
+          <div class="articles__head">
+            <h2 class="title2">
+              Статьи
+            </h2>
+            <a href="/articles" class="articles__head_link">Ещё</a>
+          </div>
+          <ul class="articles__list">
+
+            {{#each articles}}
+              <li class="articles__card">
+                <h3 class="title3">
+                  {{ cardTitle }}
+                </h3>
+                <div class="articles__section">
+                  {{ cardDateCreate }}
+
+                  {{#if cardTags.length}}
+                    |
+                    {{#each cardTags}}
+                      <span class="articles__tag">{{ this }}</span>
+                    {{/each}}
+                  {{/if}}
+                </div>
+                <p class="articles__description">
+                  {{ cardText }}
+                </p>
+                <a href="/articles/{{cardSlug}}" class="articles__head_link">Далее 	&#8594;</a>
+              </li>
+              
+            {{/each}}
+          </ul>
         </div>
-        <ul class="articles__list">
-          <li class="articles__card">
-            <h3 class="title3">
-              Making a design system from scratch
-            </h3>
-            <div class="articles__section">
-              26 Июня 2023
-              |
-              <span class="articles__tag">Парсинг</span>
-              <span class="articles__tag">Законодательство</span>
-              <span class="articles__tag">Веб</span>
-            </div>
-            <p class="articles__description">
-              Amet minim mollit non deserunt ullamco 
-              est sit aliqua dolor do amet sint. Velit 
-              officia consequat duis enim velit mollit. 
-              Exercitation veniam consequat sunt nostrud amet.
-            </p>
-            <a href="/articles/detail" class="articles__head_link">Далее 	&#8594;</a>
-          </li>
-          <li class="articles__card">
-            <h3 class="title3">
-              Making a design system from scratch
-            </h3>
-            <div class="articles__section">
-              26 Июня 2023
-              |
-              <span class="articles__tag">Парсинг</span>
-              <span class="articles__tag">Законодательство</span>
-              <span class="articles__tag">Веб</span>
-            </div>
-            <p class="articles__description">
-              Amet minim mollit non deserunt ullamco 
-              est sit aliqua dolor do amet sint. Velit 
-              officia consequat duis enim velit mollit. 
-              Exercitation veniam consequat sunt nostrud amet.
-            </p>
-            <a href="/articles/detail" class="articles__head_link">Далее 	&#8594;</a>
-          </li>
-        </ul>
-      </div>
-    </section>
+      </section>
+    {{/if}}
