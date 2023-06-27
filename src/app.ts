@@ -15,7 +15,12 @@ const { DB_NAME = 'iparsebd'}  = process.env;
 
 const app: Express = express();
 
-app.use(bodyParser.json());
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
 app.use(
   express.static(path.join(path.dirname(__dirname), 'public' ))
 );
@@ -34,6 +39,21 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
   });
 });
 
+
+app.get('/articles/:slug', (req: Request, res: Response, next: NextFunction) => {
+
+  const slug = req.params?.slug;
+
+  if (typeof slug !== 'undefined') {
+    res.render('articledetail', {
+      title: 'Статья детально - Парсинг',
+      description: 'Детальная страница статьи о парсинге сайтов',
+      slug: slug,
+    });
+  }
+
+});
+
 app.get('/articles', (req: Request, res: Response, next: NextFunction) => {
   res.render('articles', {
     title: 'Статьи - Парсинг веб-сайтов',
@@ -41,6 +61,7 @@ app.get('/articles', (req: Request, res: Response, next: NextFunction) => {
     articles: [],
   });
 });
+
 
 
 
