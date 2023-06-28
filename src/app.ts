@@ -69,7 +69,6 @@ app.get('/articles/:slug', async (req: Request, res: Response, next: NextFunctio
       cardTags: cardData[0].tags      
     });
   }
-
 });
 
 app.get('/articles', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
