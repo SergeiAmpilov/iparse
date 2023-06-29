@@ -8,6 +8,7 @@ import { engine } from 'express-handlebars';
 import { ArticleDto } from './articles/Article.dto';
 import { ArticleModel } from './articles/Article.model';
 import { trunc } from './functions/Truncate.function';
+import { ContactFormDto } from './contact-form/ContactForm.dto';
 
 dotenv.config();
 const { PORT = 3002}  = process.env;
@@ -105,6 +106,20 @@ app.post('/articles', async ({ body }: Request<{}, {}, ArticleDto>, res: Respons
   res.send({
     ok: result
   })
+});
+
+
+app.post('/contact-form', async ({ body }: Request<{}, {}, ContactFormDto>, res: Response): Promise<void> => {
+  const { name, email, description } = body;
+  console.log('get request with params', name, email, description);
+
+  res.send({
+    ok: {
+      name,
+      email,
+      description
+    }
+  });
 });
 
 

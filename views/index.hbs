@@ -11,10 +11,44 @@
           <p class="promo__subtitle">
             Собираем и анализируем данные из открытых источников.
           </p>
+          <p class="promo__subtitle">
+            <a href="#form" class="promo__button">
+              Оставить заявку на парсинг
+            </a>
+          </p>
         </div>
         <img src="images/candy5.jpg" alt="web-parsing" class="promo__img">
       </section>
     </div>
+    <section class="contact-form" id="form">
+      <div class="container">
+        <h2 class="title2">
+          Заполните форму
+        </h2>
+        <p class="contact-form__subtitle">
+          Заполните форму обратной связи, для того чтобы заказать услуги парсинга
+        </p>
+        <form action="" name="contact-form" class="contact-form__form" id="contact-form">
+          <label for="name" class="contact-form__name">
+            Ваше имя:
+            <input type="text" placeholder="Ваше имя..." name="name" class="contact-form__form-field">
+          </label>
+
+          <label for="email" class="contact-form__email">
+            Email:
+            <input type="email" placeholder="Ваш email..." name="email" class="contact-form__form-field" required>
+          </label>
+
+          <label for="description" class="contact-form__text">
+            Опишите, что нужно парсить. Укажите адреса сайтов и какие нужны данные
+            <textarea name="description" id="description" cols="8" rows="6" class="contact-form__form-field"></textarea>
+          </label>
+          <button type="submit" class="contact-form__button">
+            Отправить заявку
+          </button>
+        </form>
+      </div>
+    </section>
     {{#if articles.length}}
       <section class="articles">
         <div class="container">
