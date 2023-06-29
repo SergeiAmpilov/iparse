@@ -23,6 +23,8 @@
 .contact-form__text{grid-area:text}
 .contact-form__button{background-color:#00a8cc;border:none;border-radius:2px;color:#fff;grid-area:button;padding:10px 20px;transition:.5s ease}.contact-form__button:hover{background-color:rgba(0,168,204,.7);cursor:pointer}
 .contact-form__form-field{border:none;margin-top:10px;padding:5px;width:98%}.contact-form__form-field:focus{border-color:#00a8cc}
+.contact-form__form_centered{align-items:center;display:flex;justify-content:center;padding:50px 0}
+.contact-form__form_text{font-size:18px;text-align:center}
 .articles{background-color:#edf7fa;padding:80px 0}
 .articles__head{align-items:center;display:flex;justify-content:space-between}@media screen and (max-width:600px){.articles__head{justify-content:center}}
 .articles__head_link,.articles__head_link:visited{color:#00a8cc;font-size:16px;text-decoration:none}@media screen and (max-width:600px){.articles__head .articles__head_link{display:none}}
