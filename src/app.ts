@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
 import { engine } from 'express-handlebars';
-
+import nodemailer from 'nodemailer';
 import { ArticleDto } from './articles/Article.dto';
 import { ArticleModel } from './articles/Article.model';
 import { trunc } from './functions/Truncate.function';
@@ -12,9 +12,21 @@ import { ContactFormDto } from './contact-form/ContactForm.dto';
 import { ContactFormModel } from './contact-form/ContactForm.model';
 
 dotenv.config();
-const { PORT = 3002}  = process.env;
-const { DB_NAME = 'iparsebd'}  = process.env;
+const { 
+  PORT = 3002,
+  DB_NAME = 'iparsebd',
+  EMAIL_PASSWORD = ''
+}  = process.env;
 
+const mailConfigObject = {
+  host: 'smtp.spaceweb.ru',
+  port: 465,
+  secure: true,
+  auth: {
+      user: 'info@ampilovs.ru',
+      pass: EMAIL_PASSWORD,
+  },
+};
 
 
 const app: Express = express();
@@ -113,7 +125,6 @@ app.post('/articles', async ({ body }: Request<{}, {}, ArticleDto>, res: Respons
 app.post('/contact-form', async ({ body }: Request<{}, {}, ContactFormDto>, res: Response): Promise<void> => {
   
   const { name, email, description } = body;
-  
 
   const createResult = await ContactFormModel.create({
     name,
@@ -121,10 +132,17 @@ app.post('/contact-form', async ({ body }: Request<{}, {}, ContactFormDto>, res:
     description
   });
 
-  console.log('res create', createResult);
-  
-  // 2 - отправляем емайл администратору
-  
+  let transporter = nodemailer.createTransport(mailConfigObject);
+
+  await transporter.sendMail({
+    from: '"iparse.tech admin" <info@ampilovs.ru>',
+    to: 'dev@ampilovs.ru',
+    subject: 'New message from contact form',
+    text: `name: ${name}, email: ${email}, description: ${description}`,
+    html:
+        'This <i>message</i> was sent from <strong>Node js</strong> server.' + 
+        `<br><b>name:</b><br>${name}<br><b>email:</b><br>${email}<br><b>description:</b><br>${description}`,
+  });
 
   res.send({
     ok: {
