@@ -28,7 +28,7 @@ router.get('/', async (req: Request, res: Response, next: NextFunction): Promise
         cardSlug: el.slug,
         cardDateCreate: new Date(el.dateCreate).toLocaleString(),
         cardTitle: el.title,
-        cardText: trunc(el.text, 60),
+        cardText: trunc(el.text, 200),
         cardTags: el.tags
       };
     })
@@ -67,7 +67,7 @@ router.get('/articles', async (req: Request, res: Response, next: NextFunction):
         cardSlug: el.slug,
         cardDateCreate: new Date(el.dateCreate).toLocaleString(),
         cardTitle: el.title,
-        cardText: trunc(el.text, 60),
+        cardText: trunc(el.text, 200),
         cardTags: el.tags
       };
     }),
