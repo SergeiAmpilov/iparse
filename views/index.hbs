@@ -1,25 +1,37 @@
-    <div class="container">
-      <section class="promo">
-        <div>
-          <h1>{{site.name}}</h1>
+    <section class="promo">
+      <div class="container">
+        <div class="promo__head">
           <h1 class="promo__title">
             Услуги парсинга веб-сайтов под заказ
           </h1>
           <p class="promo__subtitle">
-            Создаем системы мониторинга цен и ассортимента конкурентов.
-          </p>
-          <p class="promo__subtitle">
-            Собираем и анализируем данные из открытых источников.
-          </p>
-          <p class="promo__subtitle">
-            <a href="#form" class="promo__button">
-              Оставить заявку на парсинг
-            </a>
+            Создаем системы мониторинга цен и ассортимента конкурентов. Собираем данные из открытых источников.
           </p>
         </div>
-        <img src="images/candy5.jpg" alt="web-parsing" class="promo__img">
-      </section>
-    </div>
+        <div class="promo__content">
+          <div>
+            <p class="promo__subtitle">
+              <b>Бесплатно</b><br>
+              Подготовим прототип парсера по вашему заданию<br>
+              <a href="#howitworks" class="articles__head_link">
+                Как это работает
+              </a>
+            </p>
+            <p class="promo__subtitle">
+              <b>5 000 р. / месяц</b><br>
+              за 1 сайт<br>
+              Обычная стоимость работы парсера
+            </p>
+            <p class="promo__subtitle">
+              <a href="#form" class="promo__button">
+                Оставить заявку на парсинг
+              </a>
+            </p>
+          </div>
+          <img src="/images/candy5.jpg" alt="web-parsing" class="promo__img">
+        </div>
+      </div>
+    </section>
     <section class="contact-form" id="form">
       <div class="container">
         <h2 class="title2">
@@ -47,6 +59,31 @@
             Отправить заявку
           </button>
         </form>
+      </div>
+    </section>
+    <section class="howitworks" id="howitworks">
+      <div class="container">
+        <h2 class="title2">Как это работает</h2>
+        <ul class="howitworks__list">
+          <li class="howitworks__item">
+            <div class="howitworks__item_number">
+              1
+            </div>
+            Определите, с каких веб-сайтов нужно собирать данные и какие именно данные интересуют
+          </li>
+          <li class="howitworks__item">
+            <div class="howitworks__item_number">
+              2
+            </div>            
+            По вашему техническому заданию <b>бесплатно</b> будет подготовлен прототип проекта. Данные будут собраны и представлены вам для выгрузки
+          </li>
+          <li class="howitworks__item">
+            <div class="howitworks__item_number">
+              3
+            </div>
+            Если формат и объем парсинга вас устраивает, заключаем договор на ежедневный сбор данных
+          </li>
+        </ul>
       </div>
     </section>
     {{#if articles.length}}

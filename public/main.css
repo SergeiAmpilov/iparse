@@ -10,12 +10,18 @@
 .mob-menu{display:none;transition:.5s linear;visibility:hidden}
 .mob-menu_visible{background-color:#edf7fa;display:block;height:calc(100vh - 80px);position:absolute;top:60px;visibility:visible;width:100%;z-index:3}
 .mob-menu__link{padding-right:20px;padding-top:20px;text-align:end}.mob-menu__link:last-child{padding-bottom:20px}
-.promo{display:grid;grid-template-columns:3fr 1fr;margin-bottom:20px;margin-top:60px}@media screen and (max-width:768px){.promo{grid-template-columns:1fr}}
+.promo{margin:60px 0}
+.promo__head{text-align:center}
 .promo__title{font-size:44px;font-weight:700;line-height:60px;margin:0}@media screen and (max-width:768px){.promo__title{font-size:32px;font-weight:700;line-height:40px;text-align:center}}
+.promo__content{display:grid;grid-template-columns:2fr 1fr;margin:60px 0}@media screen and (max-width:768px){.promo__content{grid-auto-flow:dense;grid-template-columns:1fr}}
 .promo__subtitle{font-size:16px;font-weight:400;line-height:24px;margin:40px 0 0}@media screen and (max-width:768px){.promo__subtitle{font-size:16px;text-align:center}}
-.promo__img{border-radius:10px;box-shadow:-12px 10px 9px 0 #edf7fa;width:100%}@media screen and (max-width:768px){.promo__img{border-radius:50%;margin:20px auto 0;width:80%}}
+.promo__img{border-radius:10px;box-shadow:-12px 10px 9px 0 #edf7fa;width:100%}@media screen and (max-width:768px){.promo__img{border-radius:50%;grid-row:-1;margin:20px auto 0;width:80%}}
 .promo__button,.promo__button:visited{background-color:#ff6464;border-radius:2px;color:#fff;padding:10px 20px;text-decoration:none;transition:.5s ease}.promo__button:hover{background-color:hsla(0,100%,70%,.8)}
-.contact-form{background-color:#edf7fa;margin-top:60px;padding:20px 0}
+.howitworks{margin:60px 0}
+.howitworks__list{display:grid;gap:60px;grid-template-columns:1fr 1fr 1fr;list-style-type:none;margin:20px 0;padding:0}@media screen and (max-width:768px){.howitworks__list{gap:20px;grid-template-columns:1fr}}
+.howitworks__item{text-align:center}
+.howitworks__item_number{background-color:#142850;border-radius:50%;color:#fff;font-size:22px;font-weight:900;height:10px;margin:40px auto;padding:40px;width:10px}
+.contact-form{background-color:#edf7fa;margin:60px 0;padding:60px 0}
 .contact-form__subtitle{font-size:16px;font-weight:400;margin:0}
 .contact-form__form{border:1px solid #00a8cc;border-radius:4px;display:grid;gap:40px;grid-template:"name text" "email text" "button button";margin-top:20px;padding:10px}@media screen and (max-width:768px){.contact-form__form{grid-template:"name" "email" "text" "button"}}
 .contact-form__name{grid-area:name}
