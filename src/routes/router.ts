@@ -48,7 +48,7 @@ router.get('/articles/:slug', async (req: Request, res: Response, next: NextFunc
       description: `Статья ${cardData[0].title}`,
       cardTitle: cardData[0].title,
       cardSlug: slug,
-      cardDateCreate: new Date(cardData[0].dateCreate).toLocaleString(),
+      cardDateCreate: new Date(cardData[0].dateCreate).toLocaleDateString('ru-RU'),
       cardText: cardData[0].text,
       cardTags: cardData[0].tags      
     });
@@ -65,7 +65,7 @@ router.get('/articles', async (req: Request, res: Response, next: NextFunction):
     articles: list.map( (el) => {
       return {
         cardSlug: el.slug,
-        cardDateCreate: new Date(el.dateCreate).toLocaleString(),
+        cardDateCreate: new Date(el.dateCreate).toLocaleDateString('ru-RU'),
         cardTitle: el.title,
         cardText: trunc(el.text, 200),
         cardTags: el.tags
