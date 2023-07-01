@@ -26,7 +26,7 @@ router.get('/', async (req: Request, res: Response, next: NextFunction): Promise
     articles: list.map( (el) => {
       return {
         cardSlug: el.slug,
-        cardDateCreate: new Date(el.dateCreate).toLocaleString('ru-RU'),
+        cardDateCreate: new Date(el.dateCreate).toLocaleDateString('ru-RU'),
         cardTitle: el.title,
         cardText: trunc(el.text, 200),
         cardTags: el.tags
