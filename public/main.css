@@ -6,7 +6,7 @@
 .header__nav-menu{display:block}@media screen and (max-width:768px){.header__nav-menu{display:none}}
 .header__burger-icon{display:none}@media screen and (max-width:768px){.header__burger-icon{display:block}}
 .header__nav-link,.header__nav-link:visited{color:#000;font-size:20px;font-weight:500;line-height:29px;margin-left:20px;padding:5px;text-decoration:none;transition:.5s linear}.header__nav-link:first-child{margin-left:0}.header__nav-link:hover{background-color:#edf7fa;color:#21243d}
-.header__nav-link_active,.header__nav-link_active:hover,.header__nav-link_active:visited{color:#ff6464;text-decoration:underline}
+.header__nav-link_active,.header__nav-link_active:hover,.header__nav-link_active:visited{color:#ff6464;text-decoration:none}
 .mob-menu{display:none;transition:.5s linear;visibility:hidden}
 .mob-menu_visible{background-color:#edf7fa;display:block;height:calc(100vh - 80px);position:absolute;top:60px;visibility:visible;width:100%;z-index:3}
 .mob-menu__link{padding-right:20px;padding-top:20px;text-align:end}.mob-menu__link:last-child{padding-bottom:20px}
