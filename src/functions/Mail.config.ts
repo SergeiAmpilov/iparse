@@ -5,7 +5,7 @@ export const mailConfigObject = {
   port: 465,
   secure: true,
   auth: {
-      user: 'info@ampilovs.ru',
+      user: 'info@iparse.tech',
       pass: process.env?.EMAIL_PASSWORD,
   },
 }
