@@ -21,7 +21,7 @@
 .howitworks__list{display:grid;gap:60px;grid-template-columns:1fr 1fr 1fr;list-style-type:none;margin:20px 0;padding:0}@media screen and (max-width:768px){.howitworks__list{gap:20px;grid-template-columns:1fr}}
 .howitworks__item{text-align:center}
 .howitworks__item_number{background-color:#142850;border-radius:50%;color:#fff;font-size:22px;font-weight:900;height:10px;margin:40px auto;padding:40px;width:10px}
-.contact-form{background-color:#edf7fa;margin:60px 0;padding:60px 0}
+.contact-form{background-color:#edf7fa;margin:60px 0 0;padding:60px 0}
 .contact-form__subtitle{font-size:16px;font-weight:400;margin:0}
 .contact-form__form{border:1px solid #00a8cc;border-radius:4px;display:grid;gap:40px;grid-template:"name text" "email text" "button button";margin-top:20px;padding:10px}@media screen and (max-width:768px){.contact-form__form{grid-template:"name" "email" "text" "button"}}
 .contact-form__name{grid-area:name}
@@ -43,6 +43,9 @@
 .articles__img-full{text-align:center}
 .article__img-responsive{border-radius:4px;max-width:100%}
 .articles-list{margin:60px 0}
+.contacts{margin:60px 0}
+.contacts__row{display:flex}
+.contacts__link{margin:0 20px}
 .footer{background-color:#2d2d2d;color:#fff;padding:20px 0}
 .footer__content{text-align:center}
 .hidden{display:none}
