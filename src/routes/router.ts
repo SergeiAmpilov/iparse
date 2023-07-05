@@ -5,7 +5,7 @@ import { ArticleDto } from '../articles/Article.dto';
 import { ContactFormDto } from '../contact-form/ContactForm.dto';
 import { ContactFormModel } from '../contact-form/ContactForm.model';
 import nodemailer from 'nodemailer';
-import { mailConfigObject } from '../functions/Mail.config';
+import { mailConfigObject } from '../app';
 
 
 
@@ -108,9 +108,10 @@ router.post('/contact-form', async ({ body }: Request<{}, {}, ContactFormDto>, r
   });
 
   let transporter = nodemailer.createTransport(mailConfigObject);
+  console.log(mailConfigObject);
 
   await transporter.sendMail({
-    from: '"iparse.tech admin" <info@ampilovs.ru>',
+    from: '"iparse.tech admin" <info@iparse.tech>',
     to: 'dev@ampilovs.ru',
     subject: 'New message from contact form',
     text: `name: ${name}, email: ${email}, description: ${description}`,
