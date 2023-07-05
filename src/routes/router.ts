@@ -55,6 +55,11 @@ router.get('/articles/:slug', async (req: Request, res: Response, next: NextFunc
   }
 });
 
+router.get('/contacts', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  res.render('contacts');
+});
+
+
 router.get('/articles', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
   const list = await ArticleModel.find({}).sort({'dateCreate': -1}).limit(8);  
