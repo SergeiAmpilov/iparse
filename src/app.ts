@@ -11,52 +11,93 @@ import { trunc } from './functions/Truncate.function';
 import { ContactFormDto } from './contact-form/ContactForm.dto';
 import { ContactFormModel } from './contact-form/ContactForm.model';
 import { router } from './routes/router';
+import { Server } from 'http';
+import { IMailConfig } from './interfaces/MailConfig.interface';
+import { LoggerService } from './logger/logger.service';
 
 dotenv.config();
 
-const { 
-  PORT = 3002,
-  DB_NAME = 'iparsebd',
-}  = process.env;
-
-export const mailConfigObject = {
+export const mailConfigObject: IMailConfig = {
   host: 'smtp.spaceweb.ru',
   port: 465,
   secure: true,
   auth: {
       user: 'info@iparse.tech',
-      pass: process.env.EMAIL_PASSWORD,
+      pass: process.env?.EMAIL_PASSWORD ?? '',
   },
 }
 
 
-const app: Express = express();
+export class App {
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+  app: Express;
+  port: number;
+  server: Server;
+  dbName: string;
+  mailConfig: IMailConfig;
+  logger: LoggerService;
 
-// parse application/json
-app.use(bodyParser.json())
+  constructor(
+    logger: LoggerService,
+    ) {
+    
+    // dotenv.config();
 
-app.use(
-  express.static(path.join(path.dirname(__dirname), 'public' ))
-);
+    this.app = express();
+    this.port = process.env?.PORT ? Number(process.env.PORT) : 3002;
+    this.dbName = process.env?.DB_NAME ? process.env.DB_NAME : 'iparsebd';
+    this.mailConfig = {
+      host: 'smtp.spaceweb.ru',
+      port: 465,
+      secure: true,
+      auth: {
+        user: 'info@iparse.tech',
+        pass: process.env?.EMAIL_PASSWORD ?? '',
+      },
+    };
+    this.logger = logger;
+    
+  }
 
-app.engine('hbs', engine({
-  defaultLayout: 'main',
-  extname: 'hbs'
-}));
-app.set('view engine', 'hbs');
-app.set('views', './views');
+  useRoutes() {
+    this.app.use(router);
+  }
 
-app.use(router);
+  useBodyParse() {
+    // parse application/x-www-form-urlencoded
+    this.app.use(bodyParser.urlencoded({ extended: false }))
 
-async function start() {
-  await mongoose.connect(`mongodb://0.0.0.0:27017/${DB_NAME}`);
+    // parse application/json
+    this.app.use(bodyParser.json())
+  }
 
-  app.listen(PORT, () => {
-    console.log(`Server has been started at http://localhost:${PORT}/`);
-  })
+  useStatic() {
+    this.app.use(
+      express.static(path.join(path.dirname(__dirname), 'public' ))
+    );
+  }
+
+  setRender() {
+    this.app.engine('hbs', engine({
+      defaultLayout: 'main',
+      extname: 'hbs'
+    }));
+    this.app.set('view engine', 'hbs');
+    this.app.set('views', './views');
+  }
+
+  public async init() {
+    await mongoose.connect(`mongodb://0.0.0.0:27017/${this.dbName}`);
+
+    this.useBodyParse();
+    this.useStatic();
+    this.setRender();
+    this.useRoutes();
+
+    this.server = this.app.listen( this.port, () => {
+      this.logger.log(`Server has been started at http://localhost:${this.port}/`);
+    });
+  }
+
+
 }
-
-start();
