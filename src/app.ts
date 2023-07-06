@@ -10,6 +10,7 @@ import { LoggerService } from './logger/logger.service';
 import { ArticlesController } from './articles/articles.comtroller';
 import { MainPageController } from './main-page/mainpage.controller';
 import { ContactPageController } from './contact-form/contacts.comtroller';
+import { IExeptionFilter } from './errors/exeption.filter.interface';
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ export class App {
   articlesController: ArticlesController;
   mainPageController: MainPageController;
   contactPageController: ContactPageController;
+  exeptionFilter: IExeptionFilter;
 
 
   constructor(
@@ -42,6 +44,7 @@ export class App {
     articlesController: ArticlesController,
     mainPageController: MainPageController,
     contactPageController: ContactPageController,
+    exeptionFilter: IExeptionFilter,
 
     ) {
     
@@ -64,6 +67,8 @@ export class App {
     this.articlesController = articlesController;
     this.mainPageController = mainPageController;
     this.contactPageController = contactPageController;
+    
+    this.exeptionFilter = exeptionFilter;
     
   }
 
@@ -96,6 +101,10 @@ export class App {
     this.app.set('views', './views');
   }
 
+  useExeptionFilters() {
+    this.app.use(this.exeptionFilter.catch.bind(this.exeptionFilter));
+  }
+
   public async init() {
     await mongoose.connect(`mongodb://0.0.0.0:27017/${this.dbName}`);
 
@@ -103,6 +112,7 @@ export class App {
     this.useStatic();
     this.setRender();
     this.useRoutes();
+    this.useExeptionFilters();
 
     this.server = this.app.listen( this.port, () => {
       this.logger.log(`Server has been started at http://localhost:${this.port}/`);
