@@ -7,7 +7,9 @@ export class ExeptionFilter implements IExeptionFilter {
   
   constructor(
     private readonly logger: LoggerService
-  ) {  }
+  ) {
+    this.logger.log(`[ExeptionFilter]`)
+  }
 
   catch(err: Error | HttpError, req: Request, res: Response, next: NextFunction) {
     
@@ -20,7 +22,7 @@ export class ExeptionFilter implements IExeptionFilter {
 
     } else {
       this.logger.error(`${err.message}`);
-      
+
       res.status(500).send({
         error: err.message
       })
