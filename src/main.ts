@@ -1,5 +1,6 @@
 import { App } from "./app";
 import { ArticlesController } from "./articles/articles.comtroller";
+import { ContactPageController } from "./contact-form/contacts.comtroller";
 import { LoggerService } from "./logger/logger.service";
 import { MainPageController } from "./main-page/mainpage.controller";
 
@@ -10,6 +11,7 @@ async function bootstrap() {
     logger,
     new ArticlesController(logger),
     new MainPageController(logger),
+    new ContactPageController(logger),
   );
   await app.init();
 }

@@ -16,6 +16,7 @@ import { IMailConfig } from './interfaces/MailConfig.interface';
 import { LoggerService } from './logger/logger.service';
 import { ArticlesController } from './articles/articles.comtroller';
 import { MainPageController } from './main-page/mainpage.controller';
+import { ContactPageController } from './contact-form/contacts.comtroller';
 
 dotenv.config();
 
@@ -40,12 +41,15 @@ export class App {
   logger: LoggerService;
   articlesController: ArticlesController;
   mainPageController: MainPageController;
+  contactPageController: ContactPageController;
 
 
   constructor(
     logger: LoggerService,
     articlesController: ArticlesController,
     mainPageController: MainPageController,
+    contactPageController: ContactPageController,
+
     ) {
     
     // dotenv.config();
@@ -66,12 +70,14 @@ export class App {
     
     this.articlesController = articlesController;
     this.mainPageController = mainPageController;
+    this.contactPageController = contactPageController;
     
   }
 
   useRoutes() {
     this.app.use(this.mainPageController.router);
     this.app.use(this.articlesController.router);
+    this.app.use(this.contactPageController.router);
   }
 
   useBodyParse() {
