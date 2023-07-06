@@ -5,6 +5,7 @@ import { ContactFormDto } from "./ContactForm.dto";
 import { ContactFormModel } from "./ContactForm.model";
 import nodemailer from 'nodemailer';
 import { mailConfigObject } from "../app";
+import { HttpError } from "../errors/http-error.class";
 
 
 
@@ -35,23 +36,31 @@ export class ContactPageController extends BaseController {
 
   let transporter = nodemailer.createTransport(mailConfigObject);
 
-  await transporter.sendMail({
-    from: '"iparse.tech admin" <info@iparse.tech>',
-    to: 'dev@ampilovs.ru',
-    subject: 'New message from contact form',
-    text: `name: ${name}, email: ${email}, description: ${description}`,
-    html:
-        'This <i>message</i> was sent from <strong>Node js</strong> server.' + 
-        `<br><b>name:</b><br>${name}<br><b>email:</b><br>${email}<br><b>description:</b><br>${description}`,
-  });
+  try {
+    await transporter.sendMail({
+      from: '"iparse.tech admin" <info@iparse.tech>',
+      to: 'dev@ampilovs.ru',
+      subject: 'New message from contact form',
+      text: `name: ${name}, email: ${email}, description: ${description}`,
+      html:
+          'This <i>message</i> was sent from <strong>Node js</strong> server.' + 
+          `<br><b>name:</b><br>${name}<br><b>email:</b><br>${email}<br><b>description:</b><br>${description}`,
+    });
 
-  res.send({
-    ok: {
-      name,
-      email,
-      description
-    }
-  });
+    res.send({
+      ok: {
+        name,
+        email,
+        description
+      }
+    });
+
+  } catch (e: any) {
+    next( new HttpError(500, 'ошибка отправки email-сообщения', 'ContactPageController') );
+  }
+
+
+  
 
 
   }
