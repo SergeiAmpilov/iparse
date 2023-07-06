@@ -14,6 +14,7 @@ import { router } from './routes/router';
 import { Server } from 'http';
 import { IMailConfig } from './interfaces/MailConfig.interface';
 import { LoggerService } from './logger/logger.service';
+import { ArticlesController } from './articles/articles.comtroller';
 
 dotenv.config();
 
@@ -36,9 +37,11 @@ export class App {
   dbName: string;
   mailConfig: IMailConfig;
   logger: LoggerService;
+  articlesController: ArticlesController;
 
   constructor(
     logger: LoggerService,
+    articlesController: ArticlesController
     ) {
     
     // dotenv.config();
@@ -56,11 +59,13 @@ export class App {
       },
     };
     this.logger = logger;
+    this.articlesController = articlesController;
     
   }
 
   useRoutes() {
-    this.app.use(router);
+    // this.app.use(router);
+    this.app.use(this.articlesController.router);
   }
 
   useBodyParse() {
