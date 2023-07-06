@@ -15,6 +15,7 @@ import { Server } from 'http';
 import { IMailConfig } from './interfaces/MailConfig.interface';
 import { LoggerService } from './logger/logger.service';
 import { ArticlesController } from './articles/articles.comtroller';
+import { MainPageController } from './main-page/mainpage.controller';
 
 dotenv.config();
 
@@ -38,10 +39,13 @@ export class App {
   mailConfig: IMailConfig;
   logger: LoggerService;
   articlesController: ArticlesController;
+  mainPageController: MainPageController;
+
 
   constructor(
     logger: LoggerService,
-    articlesController: ArticlesController
+    articlesController: ArticlesController,
+    mainPageController: MainPageController,
     ) {
     
     // dotenv.config();
@@ -59,12 +63,14 @@ export class App {
       },
     };
     this.logger = logger;
+    
     this.articlesController = articlesController;
+    this.mainPageController = mainPageController;
     
   }
 
   useRoutes() {
-    // this.app.use(router);
+    this.app.use(this.mainPageController.router);
     this.app.use(this.articlesController.router);
   }
 
