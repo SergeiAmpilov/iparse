@@ -1,4 +1,4 @@
-import { Container } from "inversify";
+import { Container, ContainerModule, interfaces } from "inversify";
 import { App } from "./app";
 import { ArticlesController } from "./articles/articles.comtroller";
 import { ContactPageController } from "./contact-form/contacts.comtroller";
@@ -9,19 +9,23 @@ import { ILogger } from "./logger/logger.interface";
 import { TYPES } from "./types";
 import { IExeptionFilter } from "./errors/exeption.filter.interface";
 
+export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
+  bind<ILogger>(TYPES.ILogger).to(LoggerService);
+  bind<IExeptionFilter>(TYPES.IExeptionFilter).to(ExeptionFilter);
+  bind<ArticlesController>(TYPES.ArticlesController).to(ArticlesController);
+  bind<MainPageController>(TYPES.MainPageController).to(MainPageController);
+  bind<ContactPageController>(TYPES.ContactPageController).to(ContactPageController);
+  bind<App>(TYPES.Application).to(App);
+});
 
-const appContainer = new Container();
-appContainer.bind<ILogger>(TYPES.ILogger).to(LoggerService);
-appContainer.bind<IExeptionFilter>(TYPES.IExeptionFilter).to(ExeptionFilter);
-appContainer.bind<ArticlesController>(TYPES.ArticlesController).to(ArticlesController);
-appContainer.bind<MainPageController>(TYPES.MainPageController).to(MainPageController);
-appContainer.bind<ContactPageController>(TYPES.ContactPageController).to(ContactPageController);
-appContainer.bind<App>(TYPES.Application).to(App);
+function bootstrap() {
+  const appContainer = new Container();
+  appContainer.load(appBindings);
+  
+  const app = appContainer.get<App>(TYPES.Application);
+  app.init();
 
-const app = appContainer.get<App>(TYPES.Application);
-app.init();
+  return { app, appContainer };
+}
 
-export {
-  app,
-  appContainer
-};
+export const { app, appContainer } = bootstrap();
