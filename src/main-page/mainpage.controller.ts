@@ -3,10 +3,16 @@ import { BaseController } from "../common/base.controller";
 import { LoggerService } from "../logger/logger.service";
 import { ArticleModel } from "../articles/Article.model";
 import { trunc } from "../functions/Truncate.function";
+import { inject, injectable } from "inversify";
+import { TYPES } from "../types";
+import 'reflect-metadata';
 
 
+@injectable()
 export class MainPageController extends BaseController {
-  constructor(logger: LoggerService) {
+  constructor(
+    @inject(TYPES.ILogger) logger: LoggerService,
+    ) {
     super(logger);
     this.bindRoutes([
       { method: 'get', path: '/', func: this.renderMainPage },

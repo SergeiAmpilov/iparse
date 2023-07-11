@@ -6,12 +6,18 @@ import { ContactFormModel } from "./ContactForm.model";
 import nodemailer from 'nodemailer';
 import { mailConfigObject } from "../app";
 import { HttpError } from "../errors/http-error.class";
+import { inject, injectable } from "inversify";
+import { TYPES } from "../types";
+import 'reflect-metadata';
 
 
 
 
+@injectable()
 export class ContactPageController extends BaseController {
-  constructor(logger: LoggerService) {
+  constructor(
+    @inject(TYPES.ILogger) logger: LoggerService,
+    ) {
     super(logger);
 
     this.bindRoutes([

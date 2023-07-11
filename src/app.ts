@@ -6,11 +6,14 @@ import path from 'path';
 import { engine } from 'express-handlebars';
 import { Server } from 'http';
 import { IMailConfig } from './interfaces/MailConfig.interface';
-import { LoggerService } from './logger/logger.service';
 import { ArticlesController } from './articles/articles.comtroller';
 import { MainPageController } from './main-page/mainpage.controller';
 import { ContactPageController } from './contact-form/contacts.comtroller';
 import { IExeptionFilter } from './errors/exeption.filter.interface';
+import { inject, injectable } from 'inversify';
+import { TYPES } from './types';
+import { ILogger } from './logger/logger.interface';
+import 'reflect-metadata';
 
 dotenv.config();
 
@@ -24,7 +27,7 @@ export const mailConfigObject: IMailConfig = {
   },
 }
 
-
+@injectable()
 export class App {
 
   app: Express;
@@ -32,24 +35,16 @@ export class App {
   server: Server;
   dbName: string;
   mailConfig: IMailConfig;
-  logger: LoggerService;
-  articlesController: ArticlesController;
-  mainPageController: MainPageController;
-  contactPageController: ContactPageController;
-  exeptionFilter: IExeptionFilter;
-
 
   constructor(
-    logger: LoggerService,
-    articlesController: ArticlesController,
-    mainPageController: MainPageController,
-    contactPageController: ContactPageController,
-    exeptionFilter: IExeptionFilter,
+    @inject(TYPES.ILogger) private logger: ILogger,
+    @inject(TYPES.ArticlesController) private articlesController: ArticlesController,
+    @inject(TYPES.MainPageController) private mainPageController: MainPageController,
+    @inject(TYPES.ContactPageController) private contactPageController: ContactPageController,
+    @inject(TYPES.IExeptionFilter) private exeptionFilter: IExeptionFilter,
 
     ) {
     
-    // dotenv.config();
-
     this.app = express();
     this.port = process.env?.PORT ? Number(process.env.PORT) : 3002;
     this.dbName = process.env?.DB_NAME ? process.env.DB_NAME : 'iparsebd';
@@ -61,15 +56,7 @@ export class App {
         user: 'info@iparse.tech',
         pass: process.env?.EMAIL_PASSWORD ?? '',
       },
-    };
-    this.logger = logger;
-    
-    this.articlesController = articlesController;
-    this.mainPageController = mainPageController;
-    this.contactPageController = contactPageController;
-    
-    this.exeptionFilter = exeptionFilter;
-    
+    };    
   }
 
   useRoutes() {

@@ -4,10 +4,18 @@ import { LoggerService } from "../logger/logger.service";
 import { ArticleModel } from "./Article.model";
 import { trunc } from "../functions/Truncate.function";
 import { ArticleDto } from "./Article.dto";
+import { inject, injectable } from "inversify";
+import { TYPES } from "../types";
+import { ILogger } from "../logger/logger.interface";
+import 'reflect-metadata';
 
+
+@injectable()
 export class ArticlesController extends BaseController {
 
-  constructor(logger: LoggerService) {    
+  constructor(
+    @inject(TYPES.ILogger) logger: ILogger
+    ) {    
     super(logger);
     this.bindRoutes([
       { method: 'get', path: '/articles', func: this.renderList },
