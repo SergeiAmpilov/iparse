@@ -6,7 +6,6 @@ import path from 'path';
 import { engine } from 'express-handlebars';
 import { Server } from 'http';
 import { IMailConfig } from './interfaces/MailConfig.interface';
-import { ArticlesController } from './articles/articles.comtroller';
 import { MainPageController } from './main-page/mainpage.controller';
 import { ContactPageController } from './contact-form/contacts.comtroller';
 import { IExeptionFilter } from './errors/exeption.filter.interface';
@@ -14,6 +13,7 @@ import { inject, injectable } from 'inversify';
 import { TYPES } from './types';
 import { ILogger } from './logger/logger.interface';
 import 'reflect-metadata';
+import { IArticlesController } from './articles/Articles.controller.interface';
 
 dotenv.config();
 
@@ -38,7 +38,7 @@ export class App {
 
   constructor(
     @inject(TYPES.ILogger) private logger: ILogger,
-    @inject(TYPES.ArticlesController) private articlesController: ArticlesController,
+    @inject(TYPES.IArticlesController) private articlesController: IArticlesController,
     @inject(TYPES.MainPageController) private mainPageController: MainPageController,
     @inject(TYPES.ContactPageController) private contactPageController: ContactPageController,
     @inject(TYPES.IExeptionFilter) private exeptionFilter: IExeptionFilter,

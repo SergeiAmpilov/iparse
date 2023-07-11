@@ -8,10 +8,11 @@ import { inject, injectable } from "inversify";
 import { TYPES } from "../types";
 import { ILogger } from "../logger/logger.interface";
 import 'reflect-metadata';
+import { IArticlesController } from "./Articles.controller.interface";
 
 
 @injectable()
-export class ArticlesController extends BaseController {
+export class ArticlesController extends BaseController implements IArticlesController {
 
   constructor(
     @inject(TYPES.ILogger) logger: ILogger
