@@ -27,8 +27,6 @@ export class ExeptionFilter implements IExeptionFilter {
         error: err.message
       })
     }
-
-
     
   }
 
