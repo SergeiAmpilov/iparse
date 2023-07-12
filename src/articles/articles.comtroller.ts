@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { BaseController } from "../common/base.controller";
-import { LoggerService } from "../logger/logger.service";
 import { ArticleModel } from "./Article.model";
 import { trunc } from "../functions/Truncate.function";
 import { ArticleDto } from "./Article.dto";

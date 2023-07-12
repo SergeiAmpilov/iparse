@@ -12,6 +12,8 @@ import { IArticlesController } from "./articles/Articles.controller.interface";
 import { SitemapController } from "./sitemap/sitemap.controller";
 import { ISitemapController } from "./sitemap/sitemap.interface";
 import { SitemapService } from "./sitemap/sitemap.service";
+import { IUserController } from "./users/users.controller.interface";
+import { UserController } from "./users/users.controller";
 
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
   bind<ILogger>(TYPES.ILogger).to(LoggerService);
@@ -20,6 +22,7 @@ export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
   bind<MainPageController>(TYPES.MainPageController).to(MainPageController);
   bind<ISitemapController>(TYPES.ISitemapController).to(SitemapController);
   bind<ContactPageController>(TYPES.ContactPageController).to(ContactPageController);
+  bind<IUserController>(TYPES.IUserController).to(UserController);
   bind<SitemapService>(TYPES.SitemapService).to(SitemapService);
   bind<App>(TYPES.Application).to(App);
 });

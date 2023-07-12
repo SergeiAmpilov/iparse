@@ -7,4 +7,5 @@ export const TYPES = {
   ISitemapController: Symbol.for('ISitemapController'),
   IExeptionFilter: Symbol.for('IExeptionFilter'),
   SitemapService: Symbol.for('SitemapService'),
+  IUserController: Symbol.for('IUserController'),
 };

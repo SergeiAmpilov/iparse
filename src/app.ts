@@ -14,8 +14,9 @@ import { TYPES } from './types';
 import { ILogger } from './logger/logger.interface';
 import 'reflect-metadata';
 import { IArticlesController } from './articles/Articles.controller.interface';
-import { ISitemapController } from './sitemap/sitemap.interface';
 import { SitemapController } from './sitemap/sitemap.controller';
+import { UserController } from './users/users.controller';
+import { IUserController } from './users/users.controller.interface';
 
 dotenv.config();
 
@@ -45,6 +46,7 @@ export class App {
     @inject(TYPES.ContactPageController) private contactPageController: ContactPageController,
     @inject(TYPES.IExeptionFilter) private exeptionFilter: IExeptionFilter,
     @inject(TYPES.ISitemapController) private sitemapController: SitemapController,
+    @inject(TYPES.IUserController) private userController: IUserController,
 
     ) {
     
@@ -66,6 +68,7 @@ export class App {
     this.app.use(this.mainPageController.router);
     this.app.use(this.articlesController.router);
     this.app.use(this.contactPageController.router);
+    this.app.use(this.userController.router);
   }
 
   useBodyParse() {
