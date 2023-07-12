@@ -6,4 +6,5 @@ export const TYPES = {
   ContactPageController: Symbol.for('ContactPageController'),
   ISitemapController: Symbol.for('ISitemapController'),
   IExeptionFilter: Symbol.for('IExeptionFilter'),
+  SitemapService: Symbol.for('SitemapService'),
 };
