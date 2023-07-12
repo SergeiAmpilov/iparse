@@ -2,6 +2,5 @@
 /dist
 .env
 
-# public
-/public/sitemap.xml
+/public/*.xml
 /public/robots.txt

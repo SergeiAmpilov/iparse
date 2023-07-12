@@ -29,12 +29,7 @@ export class SitemapController extends BaseController implements ISitemapControl
 
   async createSitemap(req: Request, res: Response, next: NextFunction): Promise<void> {
 
-    // const smStream = new SitemapStream({ hostname: 'https://iparse.tech/' });
-    // const pipeline = smStream.pipe(createGzip());
-
     await this.sitemapService.create();
-
-
 
     res.send({
       createSitemap: 'ok'
