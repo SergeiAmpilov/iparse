@@ -14,6 +14,8 @@ import { TYPES } from './types';
 import { ILogger } from './logger/logger.interface';
 import 'reflect-metadata';
 import { IArticlesController } from './articles/Articles.controller.interface';
+import { ISitemapController } from './sitemap/sitemap.interface';
+import { SitemapController } from './sitemap/sitemap.controller';
 
 dotenv.config();
 
@@ -42,6 +44,7 @@ export class App {
     @inject(TYPES.MainPageController) private mainPageController: MainPageController,
     @inject(TYPES.ContactPageController) private contactPageController: ContactPageController,
     @inject(TYPES.IExeptionFilter) private exeptionFilter: IExeptionFilter,
+    @inject(TYPES.ISitemapController) private sitemapController: SitemapController,
 
     ) {
     
@@ -88,6 +91,10 @@ export class App {
     this.app.set('views', './views');
   }
 
+  useSitemap() {
+    this.app.use(this.sitemapController.router);
+  }
+
   useExeptionFilters() {
     this.app.use(this.exeptionFilter.catch.bind(this.exeptionFilter));
   }
@@ -99,6 +106,7 @@ export class App {
     this.useStatic();
     this.setRender();
     this.useRoutes();
+    this.useSitemap();
     this.useExeptionFilters();
 
     this.server = this.app.listen( this.port, () => {

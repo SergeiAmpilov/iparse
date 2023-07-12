@@ -9,12 +9,15 @@ import { ILogger } from "./logger/logger.interface";
 import { TYPES } from "./types";
 import { IExeptionFilter } from "./errors/exeption.filter.interface";
 import { IArticlesController } from "./articles/Articles.controller.interface";
+import { SitemapController } from "./sitemap/sitemap.controller";
+import { ISitemapController } from "./sitemap/sitemap.interface";
 
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
   bind<ILogger>(TYPES.ILogger).to(LoggerService);
   bind<IExeptionFilter>(TYPES.IExeptionFilter).to(ExeptionFilter);
   bind<IArticlesController>(TYPES.IArticlesController).to(ArticlesController);
   bind<MainPageController>(TYPES.MainPageController).to(MainPageController);
+  bind<ISitemapController>(TYPES.ISitemapController).to(SitemapController);
   bind<ContactPageController>(TYPES.ContactPageController).to(ContactPageController);
   bind<App>(TYPES.Application).to(App);
 });

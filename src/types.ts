@@ -4,5 +4,6 @@ export const TYPES = {
   IArticlesController: Symbol.for('IArticlesController'),
   MainPageController: Symbol.for('MainPageController'),
   ContactPageController: Symbol.for('ContactPageController'),
+  ISitemapController: Symbol.for('ISitemapController'),
   IExeptionFilter: Symbol.for('IExeptionFilter'),
 };
