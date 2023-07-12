@@ -5,6 +5,8 @@ import { TYPES } from '../types';
 import { ILogger } from '../logger/logger.interface';
 import { IUserController } from './users.controller.interface';
 import { NextFunction, Request, Response } from "express";
+import { UserLoginDto } from './dto/user-login.dto';
+import { UserRegisterDto } from './dto/user-register.dto';
 
 
 
@@ -27,17 +29,22 @@ export class UserController extends BaseController implements IUserController {
         method: 'post',
         path: '/login',
         func: this.login,
-      }
-
+      },
     ]);
 
   }
 
-  async login(req: Request, res: Response, next: NextFunction): Promise<void> {
-
+  async login(req: Request<{}, {}, UserLoginDto>, res: Response, next: NextFunction): Promise<void> {
+    const { email, password } = req.body;
+    
+    console.log(email, password);
+    res.send({
+      ok: 'login'
+    });
+    
   }
 
-  async register(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async register(req: Request<{}, {}, UserRegisterDto>, res: Response, next: NextFunction): Promise<void> {
 
   }
   
