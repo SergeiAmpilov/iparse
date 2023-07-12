@@ -17,12 +17,19 @@ export class ExeptionFilter implements IExeptionFilter {
   }
 
   catch(err: Error | HttpError, req: Request, res: Response, next: NextFunction) {
+
+    console.log('catch error');
     
     if (err instanceof HttpError) {
       this.logger.error(`[${err.context}] Ошибка (${err.statusCode}) ${err.message}`);
 
-      res.status(err.statusCode).send({
-        error: err.message
+      // res.status(err.statusCode).send({
+      //   error: err.message
+      // });
+
+      res.status(err.statusCode).render('404', {
+        title: 'Произошла ошибка',
+        description: 'Произошла ошибка 404 - не найдено',
       })
 
     } else {
