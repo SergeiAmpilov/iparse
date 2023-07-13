@@ -23,14 +23,9 @@ export class ExeptionFilter implements IExeptionFilter {
     if (err instanceof HttpError) {
       this.logger.error(`[${err.context}] Ошибка (${err.statusCode}) ${err.message}`);
 
-      // res.status(err.statusCode).send({
-      //   error: err.message
-      // });
-
-      res.status(err.statusCode).render('404', {
-        title: 'Произошла ошибка',
-        description: 'Произошла ошибка 404 - не найдено',
-      })
+      res.status(err.statusCode).send({
+        error: err.message
+      });
 
     } else {
       this.logger.error(`${err.message}`);

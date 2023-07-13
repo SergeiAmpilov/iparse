@@ -8,4 +8,5 @@ export const TYPES = {
   IExeptionFilter: Symbol.for('IExeptionFilter'),
   SitemapService: Symbol.for('SitemapService'),
   IUserController: Symbol.for('IUserController'),
+  Page404Controller: Symbol.for('Page404Controller'),
 };

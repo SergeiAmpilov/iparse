@@ -14,6 +14,7 @@ import { ISitemapController } from "./sitemap/sitemap.interface";
 import { SitemapService } from "./sitemap/sitemap.service";
 import { IUserController } from "./users/users.controller.interface";
 import { UserController } from "./users/users.controller";
+import { Page404Controller } from "./page404/page404.controller";
 
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
   bind<ILogger>(TYPES.ILogger).to(LoggerService);
@@ -24,6 +25,7 @@ export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
   bind<ContactPageController>(TYPES.ContactPageController).to(ContactPageController);
   bind<IUserController>(TYPES.IUserController).to(UserController);
   bind<SitemapService>(TYPES.SitemapService).to(SitemapService);
+  bind<Page404Controller>(TYPES.Page404Controller).to(Page404Controller);
   bind<App>(TYPES.Application).to(App);
 });
 

@@ -17,6 +17,7 @@ import { IArticlesController } from './articles/Articles.controller.interface';
 import { SitemapController } from './sitemap/sitemap.controller';
 import { UserController } from './users/users.controller';
 import { IUserController } from './users/users.controller.interface';
+import { Page404Controller } from './page404/page404.controller';
 
 dotenv.config();
 
@@ -47,6 +48,8 @@ export class App {
     @inject(TYPES.IExeptionFilter) private exeptionFilter: IExeptionFilter,
     @inject(TYPES.ISitemapController) private sitemapController: SitemapController,
     @inject(TYPES.IUserController) private userController: IUserController,
+    @inject(TYPES.Page404Controller) private page404Controller: Page404Controller,
+    
 
     ) {
     
@@ -102,6 +105,10 @@ export class App {
     this.app.use(this.exeptionFilter.catch.bind(this.exeptionFilter));
   }
 
+  use404() {
+    this.app.use(this.page404Controller.router);    
+  }
+
   public async init() {
     await mongoose.connect(`mongodb://0.0.0.0:27017/${this.dbName}`);
 
@@ -110,6 +117,7 @@ export class App {
     this.setRender();
     this.useRoutes();
     this.useSitemap();
+    this.use404();
     this.useExeptionFilters();
 
     this.server = this.app.listen( this.port, () => {
