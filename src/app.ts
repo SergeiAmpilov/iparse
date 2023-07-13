@@ -18,6 +18,7 @@ import { SitemapController } from './sitemap/sitemap.controller';
 import { UserController } from './users/users.controller';
 import { IUserController } from './users/users.controller.interface';
 import { Page404Controller } from './page404/page404.controller';
+import { CasesController } from './cases/cases.controller';
 
 dotenv.config();
 
@@ -49,7 +50,7 @@ export class App {
     @inject(TYPES.ISitemapController) private sitemapController: SitemapController,
     @inject(TYPES.IUserController) private userController: IUserController,
     @inject(TYPES.Page404Controller) private page404Controller: Page404Controller,
-    
+    @inject(TYPES.CasesController) private casesController: CasesController,    
 
     ) {
     
@@ -71,6 +72,7 @@ export class App {
     this.app.use(this.mainPageController.router);
     this.app.use(this.articlesController.router);
     this.app.use(this.contactPageController.router);
+    this.app.use(this.casesController.router);
     this.app.use('/users', this.userController.router);
   }
 
