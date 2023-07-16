@@ -50,7 +50,7 @@ export class CasesController extends BaseController {
 
   createCase(req: Request, res: Response, next: NextFunction) {
     res.send({
-      ok: 'createCase'
+      ok: 'createCase',
     });
   }
 
