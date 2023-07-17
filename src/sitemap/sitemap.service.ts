@@ -22,6 +22,12 @@ export class SitemapService {
         priority: 0.7
       },
       {
+        loc: 'cases',
+        lastmod: '2023-07-17',
+        changefreq: 'daily',
+        priority: 0.7
+      },
+      {
         loc: 'articles/parsit-chuzhie-sajty-eto-voobshche-zakonno',
         lastmod: '2023-06-30',
         changefreq: 'yearly',

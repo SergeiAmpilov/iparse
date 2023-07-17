@@ -2,7 +2,15 @@
       <div class="container">
         <h1>Примеры парсинга сайтов</h1>
         <p>Скачайте <b>бесплатно</b> примеры уже собранных баз данных</p>
-        <div class="examples__list">          
+        <div class="examples__list">
+
+        {{#if casesList.length}}
+          {{#each casesList}}
+            {{> casescard }}
+          {{/each}}
+        {{/if}}
+
+
         </div>
       </div>
     </section>
