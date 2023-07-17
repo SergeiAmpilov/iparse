@@ -46,7 +46,6 @@ export class UserController extends BaseController implements IUserController {
 
   async register(req: Request<{}, {}, UserRegisterDto>, res: Response, next: NextFunction): Promise<void> {
 
-  }
-  
+  }  
 
 }
