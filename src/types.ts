@@ -10,4 +10,5 @@ export const TYPES = {
   IUserController: Symbol.for('IUserController'),
   Page404Controller: Symbol.for('Page404Controller'),
   CasesController: Symbol.for('CasesController'),
+  IUsersService: Symbol.for('IUsersService'),
 };

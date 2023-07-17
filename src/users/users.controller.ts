@@ -8,6 +8,8 @@ import { NextFunction, Request, Response } from "express";
 import { UserLoginDto } from './dto/user-login.dto';
 import { UserRegisterDto } from './dto/user-register.dto';
 import { User } from './user.entity';
+import { IUsersService } from './users.service.interface';
+import { HttpError } from '../errors/http-error.class';
 
 
 
@@ -17,6 +19,7 @@ export class UserController extends BaseController implements IUserController {
 
   constructor(
     @inject(TYPES.ILogger) private readonly loggerService: ILogger,
+    @inject(TYPES.IUsersService) private readonly usersService: IUsersService
   ) {
     super(loggerService);
 
@@ -46,12 +49,19 @@ export class UserController extends BaseController implements IUserController {
   }
 
   async register({ body }: Request<{}, {}, UserRegisterDto>, res: Response, next: NextFunction): Promise<void> {
-    const newUser = new User(body.email, body.name);
-    await newUser.setPassword(body.password);
+    
+    const newUser =  await this.usersService.createUser(body);
+    
 
-    this.ok<{ok: User}>(res, {
-      ok: newUser
+    if (!newUser) {
+      return next(new HttpError(422, 'This user allready exists'));
+    }
+
+    this.ok(res, {
+      ok: newUser.email
     });
+
+
   }  
 
 }
