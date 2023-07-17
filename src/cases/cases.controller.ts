@@ -36,10 +36,14 @@ export class CasesController extends BaseController {
 
 
   getCasesList(req: Request, res: Response, next: NextFunction) {
-    res.send({
-      ok: 'getCasesList'
+
+    res.render('cases', {
+      title: 'Примеры парсинга сайтов',
+      description: 'Скачайте бесплатно примеры уже собранных баз данных',
+      casesList: [1,2,3]
     });
 
+    
   }
 
   getCasesCard(req: Request, res: Response, next: NextFunction) {

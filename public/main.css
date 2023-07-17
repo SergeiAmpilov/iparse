@@ -46,6 +46,12 @@
 .contacts{margin:60px 0}
 .contacts__row{display:flex}
 .contacts__link{margin:0 20px}
+.examples{margin:60px 0}
+.examples__list{display:grid;gap:40px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));margin:40px 0}
+.examples__card{background-color:#edf7fa;transition:.5s ease}.examples__card:hover{box-shadow:0 0 8px #edf7fa}
+.examples__card_img{border-radius:4px;max-height:200px;-o-object-fit:cover;object-fit:cover;width:100%}
+.examples__card_content{padding:10px}
+.examples__card-title,.examples__card-title:visited{color:#21243d;text-decoration:none}
 .footer{background-color:#2d2d2d;color:#fff;padding:20px 0}
 .footer__content{text-align:center}
 .hidden{display:none}
