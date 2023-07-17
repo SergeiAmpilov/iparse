@@ -7,9 +7,9 @@ import { IUserController } from './users.controller.interface';
 import { NextFunction, Request, Response } from "express";
 import { UserLoginDto } from './dto/user-login.dto';
 import { UserRegisterDto } from './dto/user-register.dto';
-import { User } from './user.entity';
 import { IUsersService } from './users.service.interface';
 import { HttpError } from '../errors/http-error.class';
+import { ValidateMiddleware } from '../common/validate.middleware';
 
 
 
@@ -28,7 +28,9 @@ export class UserController extends BaseController implements IUserController {
         method: 'post',
         path: '/register',
         func: this.register,
-        middlewares: []
+        middlewares: [
+          new ValidateMiddleware(UserRegisterDto)
+        ]
       },
       {
         method: 'post',
