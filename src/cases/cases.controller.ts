@@ -16,20 +16,26 @@ export class CasesController extends BaseController {
 
     this.bindRoutes([
       {
-        path: '/cases',
+        path: '/',
         method: 'get',
         func: this.getCasesList
       },
       {
-        path: '/cases/:slug',
+        path: '/:slug',
         method: 'get',
         func: this.getCasesCard
       },
       {
-        path: '/cases',
+        path: '/',
         method: 'post',
         func: this.createCase
       },
+      {
+        path: '/request',
+        method: 'post',
+        func: this.getExample
+      },
+
 
     ]);
   }
@@ -63,6 +69,15 @@ export class CasesController extends BaseController {
     res.send({
       ok: 'createCase',
     });
+  }
+
+  getExample({ body }: Request, res: Response, next: NextFunction) {
+
+    
+    res.send({
+      ok: `get example by slug ${body?.slug}`,
+    });
+
   }
 
 }

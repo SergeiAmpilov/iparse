@@ -72,7 +72,7 @@ export class App {
     this.app.use(this.mainPageController.router);
     this.app.use(this.articlesController.router);
     this.app.use(this.contactPageController.router);
-    this.app.use(this.casesController.router);
+    this.app.use('/cases', this.casesController.router);
     this.app.use('/users', this.userController.router);
   }
 
