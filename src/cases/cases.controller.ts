@@ -66,13 +66,20 @@ export class CasesController extends BaseController {
     
   }
 
-  getCasesCard(req: Request, res: Response, next: NextFunction) {
-    
-    res.render('casesdetail', {
-      title: 'Примеры парсинга сайтов',
-      description: 'Скачайте бесплатно примеры уже собранных баз данных',
-      slug: req.params?.slug
-    });
+  async getCasesCard({ params }: Request, res: Response, next: NextFunction): Promise<void> {
+
+    const { slug } = params;
+    const cardData = await CaseModel.find({ slug });
+
+    if (cardData[0]) {
+      res.render('casesdetail', {
+        title: `Примеры парсинга - ${cardData[0].name}`,
+        description: `Скачайте бесплатно примеры уже собранных баз данных - ${cardData[0].name}`,
+        slug,
+        name: cardData[0].name,
+        text: cardData[0].description,
+      });
+    }    
 
   }
 
