@@ -7,6 +7,10 @@ import { NextFunction, Request, Response } from "express";
 import { CaseModel } from "./cases.model";
 import { HttpError } from "../errors/http-error.class";
 import { trunc } from "../functions/Truncate.function";
+import nodemailer from 'nodemailer';
+import { mailConfigObject } from "../app";
+import path from 'path';
+
 
 
 
@@ -99,7 +103,47 @@ export class CasesController extends BaseController {
 
   }
 
-  getExample({ body }: Request, res: Response, next: NextFunction) {
+  async getExample({ body }: Request, res: Response, next: NextFunction): Promise<void> {
+
+    const { slug, email } = body;
+    const fileAdres = path.join(
+      `${path.dirname(path.dirname(__dirname))}/`,
+      `/public/cases/${slug}/data.xls`
+    );
+        
+
+    console.log(
+      'send email example with',
+      slug,
+      email,
+      fileAdres
+    );
+    
+    let transporter = nodemailer.createTransport(mailConfigObject);
+
+    try {
+
+      await transporter.sendMail({
+        from: '"iparse.tech admin" <info@iparse.tech>',
+        to: email,
+        subject: 'Пример базы данных парсинга',
+        text: 'Здравствуйте! Подготовили для Вас выгрузку базы данных - она в прикреплении к письму.',
+        html: `<b>Здравствуйте!</b><br>Подготовили для Вас выгрузку базы данных - она в прикреплении к письму.`,
+        attachments: [
+          {
+            filename: 'data.xls',
+            content: 'Parsed data',
+            path: fileAdres,
+          }
+        ],
+      });
+
+    } catch(e: any) {
+      next( new HttpError(500, 'ошибка отправки email-сообщения', 'ContactPageController') );
+    }
+
+
+
 
     
     res.send({
