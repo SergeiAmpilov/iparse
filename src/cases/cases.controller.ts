@@ -109,15 +109,7 @@ export class CasesController extends BaseController {
     const fileAdres = path.join(
       `${path.dirname(path.dirname(__dirname))}/`,
       `/public/cases/${slug}/data.xls`
-    );
-        
-
-    console.log(
-      'send email example with',
-      slug,
-      email,
-      fileAdres
-    );
+    );           
     
     let transporter = nodemailer.createTransport(mailConfigObject);
 
@@ -141,14 +133,6 @@ export class CasesController extends BaseController {
     } catch(e: any) {
       next( new HttpError(500, 'ошибка отправки email-сообщения', 'ContactPageController') );
     }
-
-
-
-
-    
-    res.send({
-      ok: `get example by slug ${body?.slug}`,
-    });
 
   }
 
