@@ -4,6 +4,9 @@ import 'reflect-metadata';
 import { TYPES } from "../types";
 import { ILogger } from "../logger/logger.interface";
 import { NextFunction, Request, Response } from "express";
+import { CaseModel } from "./cases.model";
+import { HttpError } from "../errors/http-error.class";
+import { trunc } from "../functions/Truncate.function";
 
 
 
@@ -41,12 +44,23 @@ export class CasesController extends BaseController {
   }
 
 
-  getCasesList(req: Request, res: Response, next: NextFunction) {
+  async getCasesList(req: Request, res: Response, next: NextFunction): Promise<void> {
+
+    const list = await CaseModel.find({}).sort({'dateCreate': -1}).limit(18);
+
+    const casesList = list.map( (el) => {
+      const { slug, name, description } = el;
+      return {
+        slug,
+        name,
+        description: trunc(description, 200),
+      };
+    })
 
     res.render('cases', {
       title: 'Примеры парсинга сайтов',
       description: 'Скачайте бесплатно примеры уже собранных баз данных',
-      casesList: [1,2,3]
+      casesList,
     });
 
     
@@ -60,15 +74,22 @@ export class CasesController extends BaseController {
       slug: req.params?.slug
     });
 
-    // res.send({
-    //   ok: `getCasesCard ${req.params?.slug}`
-    // });
   }
 
-  createCase(req: Request, res: Response, next: NextFunction) {
-    res.send({
-      ok: 'createCase',
-    });
+  async createCase({ body }: Request, res: Response, next: NextFunction): Promise<void> {
+    
+    const { slug, name, description } = body;
+
+    const result = await CaseModel.create({ slug, name, description });
+
+    if (result) {
+      res.send({
+        ok: result,
+      });
+    } else {
+      next( new HttpError(500, 'cannot create new case'));
+    }
+
   }
 
   getExample({ body }: Request, res: Response, next: NextFunction) {
