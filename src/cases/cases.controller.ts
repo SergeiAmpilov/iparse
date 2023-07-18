@@ -47,9 +47,16 @@ export class CasesController extends BaseController {
   }
 
   getCasesCard(req: Request, res: Response, next: NextFunction) {
-    res.send({
-      ok: `getCasesCard ${req.params?.slug}`
+    
+    res.render('casesdetail', {
+      title: 'Примеры парсинга сайтов',
+      description: 'Скачайте бесплатно примеры уже собранных баз данных',
+      slug: req.params?.slug
     });
+
+    // res.send({
+    //   ok: `getCasesCard ${req.params?.slug}`
+    // });
   }
 
   createCase(req: Request, res: Response, next: NextFunction) {
