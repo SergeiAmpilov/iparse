@@ -11,9 +11,6 @@ import nodemailer from 'nodemailer';
 import { mailConfigObject } from "../app";
 import path from 'path';
 
-
-
-
 @injectable()
 export class CasesController extends BaseController {
   constructor(
@@ -43,14 +40,13 @@ export class CasesController extends BaseController {
         func: this.getExample
       },
 
-
     ]);
   }
 
 
   async getCasesList(req: Request, res: Response, next: NextFunction): Promise<void> {
 
-    const list = await CaseModel.find({}).sort({'dateCreate': -1}).limit(18);
+    const list = await CaseModel.find({}).sort({'dateCreate': -1}).limit(18).exec();
 
     const casesList = list.map( (el) => {
       const { slug, name, description } = el;
@@ -73,7 +69,7 @@ export class CasesController extends BaseController {
   async getCasesCard({ params }: Request, res: Response, next: NextFunction): Promise<void> {
 
     const { slug } = params;
-    const cardData = await CaseModel.find({ slug });
+    const cardData = await CaseModel.find({ slug }).exec();
 
     if (cardData[0]) {
       res.render('casesdetail', {

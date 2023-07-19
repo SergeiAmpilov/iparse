@@ -12,4 +12,8 @@ export const caseSchema = new mongoose.Schema({
     minlength: 6,
   },
   description: String,
+  dateCreate: {
+    type: Date,
+    default: Date.now
+  },
 });
