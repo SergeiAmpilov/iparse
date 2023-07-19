@@ -3,6 +3,7 @@ import { injectable } from "inversify";
 import xml from "xml";
 import { promises as fs } from 'fs';
 import path from 'path';
+import { CaseModel } from '../cases/cases.model';
 
 
 
@@ -11,7 +12,6 @@ export class SitemapService {
 
   async create(): Promise<void> {
     
-    console.log('sitemap service');
     const baseDomain = 'https://iparse.tech/';
 
     const urlList: IndexUrl[] = [
@@ -71,6 +71,20 @@ export class SitemapService {
       ],
     };
 
+    // cases
+    const cases: IndexUrl[] = [
+      {
+        loc: 'cases',
+        lastmod: '2023-07-19',
+        changefreq: 'daily',
+        priority: 0.7
+      }
+    ];
+    const casesLinks = await this.buildCasesLinks();
+    const casesUrl = [...cases, ...casesLinks].map(this.transferLinkToObj);
+    
+    
+
     const sitemapObject = {
       urlset: [
         {
@@ -80,6 +94,7 @@ export class SitemapService {
         },
         indexItem,
         ...sitemapItems,
+        ...casesUrl,
       ],
     };
 
@@ -89,6 +104,39 @@ export class SitemapService {
 
     await fs.writeFile(path.join(path.dirname(path.dirname(__dirname)), 'public/sitemap.xml'), sitemap, 'utf8');
     console.log('sitemap service - done');
+
+  }
+
+  async buildCasesLinks() {
+
+    const result: IndexUrl[] = [];
+    const list = await CaseModel.find({}).sort({'dateCreate': -1}).exec();
+
+    list.forEach((el) => {
+      result.push({
+        loc: `cases/${el.slug}`,
+        lastmod: el.dateCreate.toString(),
+        changefreq: 'yearly',
+        priority: 0.6
+      })
+    })
+
+    return result;
+
+  }
+
+  transferLinkToObj(element: IndexUrl) {
+
+    const baseDomain = 'https://iparse.tech/';
+
+    return {
+      url: [
+        {loc: `${baseDomain}${element.loc}`},
+        {lastmod: element.lastmod ? new Date(element.lastmod).toISOString().split("T")[0] : new Date().toISOString().split("T")[0]},
+        {changefreq: element.changefreq ?? 'monthly'},
+        {priority: element.priority ?? 0.6},
+      ],
+    }
 
   }
 
