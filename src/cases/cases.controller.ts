@@ -126,6 +126,10 @@ export class CasesController extends BaseController {
         ],
       });
 
+      res.send({
+        ok: 'send'
+      });
+
     } catch(e: any) {
       next( new HttpError(500, 'ошибка отправки email-сообщения', 'ContactPageController') );
     }
