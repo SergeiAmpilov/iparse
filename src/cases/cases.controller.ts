@@ -43,7 +43,6 @@ export class CasesController extends BaseController {
     ]);
   }
 
-
   async getCasesList(req: Request, res: Response, next: NextFunction): Promise<void> {
 
     const list = await CaseModel.find({}).sort({'dateCreate': -1}).limit(18).exec();
