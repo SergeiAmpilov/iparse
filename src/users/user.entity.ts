@@ -1,6 +1,5 @@
 import { hash } from 'bcrypt';
 
-
 export class User {
 
   private _password: string;
@@ -18,8 +17,8 @@ export class User {
     return this._name;
   }
 
-  public async setPassword(pass: string): Promise<void> {
-    this._password = await hash(pass, 10);
+  public async setPassword(pass: string, salt: number): Promise<void> {
+    this._password = await hash(pass, salt);
   }
 
   get password(): string {
