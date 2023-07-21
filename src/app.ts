@@ -19,6 +19,7 @@ import { UserController } from './users/users.controller';
 import { IUserController } from './users/users.controller.interface';
 import { Page404Controller } from './page404/page404.controller';
 import { CasesController } from './cases/cases.controller';
+import { IConfigService } from './config/config.service.interface';
 
 dotenv.config();
 
@@ -50,10 +51,12 @@ export class App {
     @inject(TYPES.ISitemapController) private sitemapController: SitemapController,
     @inject(TYPES.IUserController) private userController: IUserController,
     @inject(TYPES.Page404Controller) private page404Controller: Page404Controller,
-    @inject(TYPES.CasesController) private casesController: CasesController,    
+    @inject(TYPES.CasesController) private casesController: CasesController,
+    @inject(TYPES.IConfigService) private readonly configService: IConfigService,
 
     ) {
     
+    const emailPassword = this.configService.get<string>('EMAIL_PASSWORD');
     this.app = express();
     this.port = process.env?.PORT ? Number(process.env.PORT) : 3002;
     this.dbName = process.env?.DB_NAME ? process.env.DB_NAME : 'iparsebd';
@@ -63,7 +66,7 @@ export class App {
       secure: true,
       auth: {
         user: 'info@iparse.tech',
-        pass: process.env?.EMAIL_PASSWORD ?? '',
+        pass: emailPassword ?? '',  
       },
     };    
   }

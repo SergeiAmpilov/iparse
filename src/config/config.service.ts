@@ -17,9 +17,9 @@ export class ConfigService implements IConfigService {
     if (result.error) {
       loggerService.error('Cannot read .env config file', result.error);
     } else {
+      loggerService.log('[ConfigService] config service uploaded fron .env');
       this.config = result.parsed as DotenvParseOutput;
     }
-
   }
   
   get<T extends string | number>(key: string): T {

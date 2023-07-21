@@ -22,7 +22,7 @@ import { IConfigService } from "./config/config.service.interface";
 import { ConfigService } from "./config/config.service";
 
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
-  bind<ILogger>(TYPES.ILogger).to(LoggerService);
+  bind<ILogger>(TYPES.ILogger).to(LoggerService).inSingletonScope();
   bind<IExeptionFilter>(TYPES.IExeptionFilter).to(ExeptionFilter);
   bind<IArticlesController>(TYPES.IArticlesController).to(ArticlesController);
   bind<MainPageController>(TYPES.MainPageController).to(MainPageController);
@@ -33,7 +33,7 @@ export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
   bind<Page404Controller>(TYPES.Page404Controller).to(Page404Controller);
   bind<CasesController>(TYPES.CasesController).to(CasesController);  
   bind<IUsersService>(TYPES.IUsersService).to(UserService);  
-  bind<IConfigService>(TYPES.IConfigService).to(ConfigService);    
+  bind<IConfigService>(TYPES.IConfigService).to(ConfigService).inSingletonScope();    
   bind<App>(TYPES.Application).to(App);
 });
 
