@@ -18,6 +18,8 @@ import { Page404Controller } from "./page404/page404.controller";
 import { CasesController } from "./cases/cases.controller";
 import { IUsersService } from "./users/users.service.interface";
 import { UserService } from "./users/users.service";
+import { IConfigService } from "./config/config.service.interface";
+import { ConfigService } from "./config/config.service";
 
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
   bind<ILogger>(TYPES.ILogger).to(LoggerService);
@@ -31,6 +33,7 @@ export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
   bind<Page404Controller>(TYPES.Page404Controller).to(Page404Controller);
   bind<CasesController>(TYPES.CasesController).to(CasesController);  
   bind<IUsersService>(TYPES.IUsersService).to(UserService);  
+  bind<IConfigService>(TYPES.IConfigService).to(ConfigService);    
   bind<App>(TYPES.Application).to(App);
 });
 
