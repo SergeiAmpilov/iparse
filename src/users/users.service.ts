@@ -40,7 +40,7 @@ export class UserService implements IUsersService {
     }
 
     const newUser = new User(existedUser.email, existedUser.name);
-    return await newUser.checkPassword(password, existedUser.password);
+    return newUser.checkPassword(password, existedUser.password);
   };
 
 }

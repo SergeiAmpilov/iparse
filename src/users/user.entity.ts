@@ -26,7 +26,7 @@ export class User {
   }
 
   public async checkPassword(pass: string, hash: string): Promise<boolean> {
-    const resCompare = await compare(pass, hash);
+    const resCompare = compare(pass, hash);
     return resCompare;
   }
 }
