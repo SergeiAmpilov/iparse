@@ -1,4 +1,4 @@
-import { hash } from 'bcrypt';
+import { hash, compare } from 'bcrypt';
 
 export class User {
 
@@ -23,5 +23,10 @@ export class User {
 
   get password(): string {
     return this._password;
+  }
+
+  public async checkPassword(pass: string, hash: string): Promise<boolean> {
+    const resCompare = await compare(pass, hash);
+    return resCompare;
   }
 }

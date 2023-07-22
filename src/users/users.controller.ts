@@ -43,11 +43,19 @@ export class UserController extends BaseController implements IUserController {
 
   async login(req: Request<{}, {}, UserLoginDto>, res: Response, next: NextFunction): Promise<void> {
     const { email, password } = req.body;
+
+    const resValidate = await this.usersService.validateUser({ email, password });
+
+
+    if (resValidate) {
+      res.send({
+        ok: 'login'
+      });
+    } else {
+      return next(new HttpError(401, 'Not authorized', 'UsersController'));
+    }
+        
     
-    console.log(email, password);
-    res.send({
-      ok: 'login'
-    });
     
   }
 
