@@ -6,12 +6,14 @@ import 'reflect-metadata';
 import { inject, injectable } from "inversify";
 import { IConfigService } from "../config/config.service.interface";
 import { TYPES } from "../types";
+import { IUsersRepository } from "./users.repository.interface";
 
 @injectable()
 export class UserService implements IUsersService {
 
   constructor(
     @inject(TYPES.IConfigService) private readonly configService: IConfigService,
+    @inject(TYPES.IUsersRepository) private readonly usersRepository: IUsersRepository,
   ) {}
   
   async createUser({ name, email, password}: UserRegisterDto):  Promise<User | null> {
@@ -19,7 +21,14 @@ export class UserService implements IUsersService {
     const newUser = new User(email, name);
     await newUser.setPassword(password, salt);
 
-    return new User(name, email)
+    const existedUser = await this.usersRepository.find( email );
+    
+    if (existedUser !== null) {
+      return null;
+    }
+    
+    return await this.usersRepository.create(newUser);  
+
   };
 
   async validateUser({ email, password }: UserLoginDto): Promise<boolean> {
