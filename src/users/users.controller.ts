@@ -12,6 +12,7 @@ import { HttpError } from '../errors/http-error.class';
 import { ValidateMiddleware } from '../common/validate.middleware';
 import { sign } from 'jsonwebtoken';
 import { IConfigService } from '../config/config.service.interface';
+import { AuthGuard } from '../common/auth.guard.middleware';
 
 
 
@@ -43,6 +44,9 @@ export class UserController extends BaseController implements IUserController {
         method: 'get',
         path: '/info',
         func: this.info,
+        middlewares: [
+          new AuthGuard()
+        ],
       },
     ]);
 
