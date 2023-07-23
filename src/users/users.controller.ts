@@ -39,6 +39,9 @@ export class UserController extends BaseController implements IUserController {
         method: 'post',
         path: '/login',
         func: this.login,
+        middlewares: [
+          new ValidateMiddleware(UserLoginDto)
+        ],
       },
       {
         method: 'get',
@@ -52,11 +55,10 @@ export class UserController extends BaseController implements IUserController {
 
   }
 
-  async login(req: Request<{}, {}, UserLoginDto>, res: Response, next: NextFunction): Promise<void> {
-    const { email, password } = req.body;
+  async login({ body }: Request<{}, {}, UserLoginDto>, res: Response, next: NextFunction): Promise<void> {
 
+    const { email, password } = body;
     const resValidate = await this.usersService.validateUser({ email, password });
-    console.log('resValidate', resValidate);
 
     if (resValidate) {
       

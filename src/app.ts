@@ -82,7 +82,7 @@ export class App {
     this.app.use('/users', this.userController.router);
   }
 
-  async useMiddleware() {
+  useMiddleware() {
     const authMiddleware = new AuthMiddleware(this.configService.get('SECRET'));
     this.app.use(authMiddleware.execute.bind(authMiddleware));
   }
