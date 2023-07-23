@@ -10,6 +10,7 @@ import { trunc } from "../functions/Truncate.function";
 import nodemailer from 'nodemailer';
 import { mailConfigObject } from "../app";
 import path from 'path';
+import { AuthGuard } from "../common/auth.guard.middleware";
 
 @injectable()
 export class CasesController extends BaseController {
@@ -32,7 +33,10 @@ export class CasesController extends BaseController {
       {
         path: '/',
         method: 'post',
-        func: this.createCase
+        func: this.createCase,
+        middlewares: [
+          new AuthGuard()
+        ],
       },
       {
         path: '/request',

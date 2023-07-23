@@ -8,6 +8,7 @@ import { TYPES } from "../types";
 import { ILogger } from "../logger/logger.interface";
 import 'reflect-metadata';
 import { IArticlesController } from "./Articles.controller.interface";
+import { AuthGuard } from "../common/auth.guard.middleware";
 
 
 @injectable()
@@ -20,7 +21,14 @@ export class ArticlesController extends BaseController implements IArticlesContr
     this.bindRoutes([
       { method: 'get', path: '/articles', func: this.renderList },
       { method: 'get', path: '/articles/:slug', func: this.renderOne },
-      { method: 'post', path: '/articles', func: this.create },
+      { 
+        method: 'post',
+        path: '/articles',
+        func: this.create,
+        middlewares: [
+          new AuthGuard()
+        ],
+      },
     ]);
   }
 
