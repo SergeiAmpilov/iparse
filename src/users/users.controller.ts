@@ -27,6 +27,7 @@ export class UserController extends BaseController implements IUserController {
     super(loggerService);
 
     this.bindRoutes([
+      /*
       {
         method: 'post',
         path: '/register',
@@ -35,6 +36,7 @@ export class UserController extends BaseController implements IUserController {
           new ValidateMiddleware(UserRegisterDto)
         ]
       },
+      */
       {
         method: 'post',
         path: '/login',
