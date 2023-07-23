@@ -18,7 +18,8 @@ export class UsersRepositiry implements IUsersRepository {
   };
 
   async find(email: string) {
-    const userFound = UsersModel.findOne({ email }).exec();
+    const userFound = await UsersModel.findOne({ email }).exec();
+    console.log('userFound', userFound);
     return userFound;
   };
 
