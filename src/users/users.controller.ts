@@ -10,7 +10,7 @@ import { UserRegisterDto } from './dto/user-register.dto';
 import { IUsersService } from './users.service.interface';
 import { HttpError } from '../errors/http-error.class';
 import { ValidateMiddleware } from '../common/validate.middleware';
-
+import { sign } from 'jsonwebtoken';
 
 
 
@@ -46,16 +46,13 @@ export class UserController extends BaseController implements IUserController {
 
     const resValidate = await this.usersService.validateUser({ email, password });
 
-
     if (resValidate) {
       res.send({
         ok: 'login'
       });
     } else {
       return next(new HttpError(401, 'Not authorized', 'UsersController'));
-    }
-        
-    
+    }   
     
   }
 
@@ -71,8 +68,27 @@ export class UserController extends BaseController implements IUserController {
     this.ok(res, {
       ok: newUser.email
     });
+  }
 
-
-  }  
+  private signJWT(email: string, secret: string): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      sign(
+        {
+          email,
+          iat: Math.floor(Date.now() / 1000),
+        },
+        secret,
+        {
+          algorithm: 'HS256'
+        },
+        (err, token) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(token as string)
+          }
+        });
+    })
+  }
 
 }
