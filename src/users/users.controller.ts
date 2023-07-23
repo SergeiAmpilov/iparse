@@ -56,6 +56,7 @@ export class UserController extends BaseController implements IUserController {
     const { email, password } = req.body;
 
     const resValidate = await this.usersService.validateUser({ email, password });
+    console.log('resValidate', resValidate);
 
     if (resValidate) {
       
