@@ -45,17 +45,8 @@ export class UserService implements IUsersService {
   };
 
 
-  async getUserInfo(email: string): Promise<User | null> {
-    const userFound = await UsersModel.findOne({ email }).exec();
-    if (userFound) {
-
-      return new User(userFound.email, userFound.name);
-
-    }
-
-    return null;
-
-
+  async getUserInfo(email: string) {
+    return await UsersModel.findOne({ email }).exec();
   }
 
 }
