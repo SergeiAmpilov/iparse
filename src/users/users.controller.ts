@@ -39,6 +39,11 @@ export class UserController extends BaseController implements IUserController {
         path: '/login',
         func: this.login,
       },
+      {
+        method: 'get',
+        path: '/info',
+        func: this.info,
+      },
     ]);
 
   }
@@ -74,6 +79,13 @@ export class UserController extends BaseController implements IUserController {
 
     this.ok(res, {
       ok: newUser.email
+    });
+  }
+
+  info(req: Request, res: Response, next: NextFunction) {
+    const { user } = req;
+    this.ok(res, {
+      email: user
     });
   }
 

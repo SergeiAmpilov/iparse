@@ -20,6 +20,7 @@ import { IUserController } from './users/users.controller.interface';
 import { Page404Controller } from './page404/page404.controller';
 import { CasesController } from './cases/cases.controller';
 import { IConfigService } from './config/config.service.interface';
+import { AuthMiddleware } from './common/auth.middleware';
 
 dotenv.config();
 
@@ -72,11 +73,18 @@ export class App {
   }
 
   useRoutes() {
+    
+    
     this.app.use(this.mainPageController.router);
     this.app.use(this.articlesController.router);
     this.app.use(this.contactPageController.router);
     this.app.use('/cases', this.casesController.router);
     this.app.use('/users', this.userController.router);
+  }
+
+  async useMiddleware() {
+    const authMiddleware = new AuthMiddleware(this.configService.get('SECRET'));
+    this.app.use(authMiddleware.execute.bind(authMiddleware));
   }
 
   useBodyParse() {
@@ -118,6 +126,7 @@ export class App {
     await mongoose.connect(`mongodb://0.0.0.0:27017/${this.dbName}`);
 
     this.useBodyParse();
+    this.useMiddleware();
     this.useStatic();
     this.setRender();
     this.useRoutes();
