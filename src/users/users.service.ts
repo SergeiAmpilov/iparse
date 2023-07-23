@@ -7,6 +7,7 @@ import { inject, injectable } from "inversify";
 import { IConfigService } from "../config/config.service.interface";
 import { TYPES } from "../types";
 import { IUsersRepository } from "./users.repository.interface";
+import { UsersModel } from "./users.model";
 
 @injectable()
 export class UserService implements IUsersService {
@@ -42,5 +43,19 @@ export class UserService implements IUsersService {
     const newUser = new User(existedUser.email, existedUser.name);
     return newUser.checkPassword(password, existedUser.password);
   };
+
+
+  async getUserInfo(email: string): Promise<User | null> {
+    const userFound = await UsersModel.findOne({ email }).exec();
+    if (userFound) {
+
+      return new User(userFound.email, userFound.name);
+
+    }
+
+    return null;
+
+
+  }
 
 }
