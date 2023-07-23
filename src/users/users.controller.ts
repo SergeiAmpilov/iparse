@@ -11,6 +11,7 @@ import { IUsersService } from './users.service.interface';
 import { HttpError } from '../errors/http-error.class';
 import { ValidateMiddleware } from '../common/validate.middleware';
 import { sign } from 'jsonwebtoken';
+import { IConfigService } from '../config/config.service.interface';
 
 
 
@@ -19,7 +20,8 @@ export class UserController extends BaseController implements IUserController {
 
   constructor(
     @inject(TYPES.ILogger) private readonly loggerService: ILogger,
-    @inject(TYPES.IUsersService) private readonly usersService: IUsersService
+    @inject(TYPES.IUsersService) private readonly usersService: IUsersService,
+    @inject(TYPES.IConfigService) private readonly configService: IConfigService,
   ) {
     super(loggerService);
 
@@ -47,12 +49,17 @@ export class UserController extends BaseController implements IUserController {
     const resValidate = await this.usersService.validateUser({ email, password });
 
     if (resValidate) {
-      res.send({
-        ok: 'login'
-      });
+      
+      const secret = this.configService.get('SECRET');
+      if (secret) {
+        const jwt = await this.signJWT(email, secret as string);
+        res.send({ jwt });
+
+      }
+
     } else {
       return next(new HttpError(401, 'Not authorized', 'UsersController'));
-    }   
+    }  
     
   }
 
