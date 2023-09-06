@@ -1,0 +1,55 @@
+    <section class="articles-list">
+      <div class="container">
+        <h1>{{ cardTitle }}</h1>
+        <div class="articles__section">
+          {{ cardDateCreate }}
+          {{#if cardTags.length}}          |
+            {{#each cardTags}}
+              <span class="articles__tag">{{ this }}</span>
+            {{/each}}
+          {{/if}}
+        </div>
+
+        <div class="articles__img-full">
+          <img src="/images/articles/{{cardSlug}}/preview.png" alt="parsing" class="article__img-responsive">
+        </div>
+
+
+        <p class="articles__description">
+          Если вы сами когда-то задумывались о том, чтобы парсить сайты конкурентов, 
+          то вполне может получиться так, что и ваш собственный сайт кто-то парсит. 
+          Как понять, происходит ли это?
+        </p>
+
+        <p class="articles__description">
+          Из нашей практики и наблюдений, заметить это можно с помощью анализа 
+          посещений например через Яндекс Метрику. Большинство ботов и скриптов 
+          маскируют свой браузер и ip, но вот на графике посещений видно, 
+          что очень сильно возрастает число прямых заходов.
+        </p>
+
+        <div class="articles__img-full">
+          <img src="/images/articles/{{cardSlug}}/graph.png" alt="yandex graphic" class="article__img-responsive">
+        </div>
+
+        <h2>Как защититься от парсинга</h2>
+
+        <p class="articles__description">
+          Опять же, из практики, существуют системы, которые затрудняют сбор данных для наших парсеров. 
+          Например, есть такая система  <a href="https://www.cloudflare.com/" target="_blank">cloudflare.com</a> — довольно результативная.
+        </p>
+
+        <h2>А может быть и не нужно защищаться?</h2>
+
+        <p class="articles__description">
+          Если ваш сайт парсят, вероятно на нем есть полезная информация. Возможно, 
+          вам стоит рассмотреть вариант самостоятельно предоставить доступ к ней, 
+          на ваших условиях. Например, можно собирать подписную базу и раздавать данные за подписку, 
+          или в конце концов, сделать API-интерфейс (платный!). Ведь любой парсинг так же стоит денег, 
+          и может быть выгоднее оплатить прямой доступ, чем ковыряться с парсером.
+        </p>
+        
+        <a href="/articles" class="articles__head_link">&#8592; Назад</a>
+
+      </div>
+    </section>
