@@ -4,21 +4,34 @@
   </h1>
   <p>
     Parser light - это простое веб-приложение для автоматизации сбора данных в интернете.
-    Скачайте исходный код бесплатного приложения для парсинга:
-    <a href="https://github.com/SergeiAmpilov/parser-light" class="articles__head_link">go github</a> &#9989;
   </p>
   <img src="/images/app-page/parser1.png" alt="Parser light preview" class="promo__img">
 
   <h2>Оглавление:</h2>
   <ul>
     <li>
+      <a href="#download" class="articles__head_link">Скачать исходный код приложения</a>
+    </li>
+    <li>
       <a href="#downdetector" class="articles__head_link">Сервис downdetector</a>
     </li>
-        <li>
+    <li>
       <a href="#seoparser" class="articles__head_link">SeoParser</a>
     </li>
+    <li>
+      <a href="#setupguide" class="articles__head_link">Инструкция по установке</a>
+    </li>
+    <li>
+      <a href="#tech" class="articles__head_link">Технологии</a>
+    </li>
   </ul>
-  
+
+  <h2 id="download">Скачать</h2>
+  <p>
+    Скачайте исходный код бесплатного приложения для парсинга:
+    <a href="https://github.com/SergeiAmpilov/parser-light" class="articles__head_link" target="_blank">go github</a> &#9989;
+  </p>
+    
   <h2 id="downdetector">DownDetector</h2>
   <p>
     DownDetector - это сервис определения доступности и работоспособности сайта или интернет-ресурса. 
@@ -48,6 +61,75 @@
   <img src="/images/app-page/seoparser1.png" alt="Seoparser" class="promo__img">
   <img src="/images/app-page/seoparser2.png" alt="Sitwemap list" class="promo__img">
   <img src="/images/app-page/seoparser3.png" alt="Pages and tags" class="promo__img">
-  
 
+  <h2 id="setupguide">Инструкция по установке</h2>
+  <ol>
+    <li>
+      Клонируйте исходный код приложения:
+      <pre>
+        git clone https://github.com/SergeiAmpilov/parser-light.git
+      </pre>
+    </li>
+    <li>
+      Перейдите в директорию с установленным приложением:
+      <pre>
+        cd ./parser-light
+      </pre>
+    </li>
+    <li>
+      Установите npm-пакеты и зависимости:
+      <pre>
+        npm i
+      </pre>
+    </li>
+    <li>
+      Запустите миграции базы данных
+      <pre>
+        npx prisma migrate dev --name init
+      </pre>
+    </li>
+    <li>
+      Соберите приложение frontend:
+      <pre>
+        npm run build:front
+      </pre>
+    </li>
+    <li>
+      Соберите приложение backend:
+      <pre>
+        npm run build
+      </pre>
+    </li>
+    <li>
+      Запустите приложение:
+      <pre>
+        npm run start
+      </pre>
+    </li>
+    <li>
+      Интерфейс приложения доступен на локальном сервере: 
+      <a href="http://localhost:3000/" class="articles__head_link">
+        http://localhost:3000/
+      </a>
+      <pre></pre>
+    </li>
+    <li>
+      Поздравляю! Вы великолепны и можете парсить!
+    </li>
+  </ol>
+
+
+  <h2 id="tech">Используемые технологии</h2>
+  <img src="/images/app-page/preview.png" alt="Seoparser" class="promo__img">
+
+  <ul>
+    <li>TypeScript</li>
+    <li>Node.js</li>
+    <li>Express.js</li>
+    <li>Prisma - ORM</li>
+    <li>axios - для запросов</li>
+    <li>puppeteer - для парсинга</li>
+    <li> Materialize.css and express-handlebars - frontend</li>
+  </ul>
+  
 </div>
