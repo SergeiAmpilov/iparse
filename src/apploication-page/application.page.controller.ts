@@ -25,6 +25,9 @@ export class ApplicationPage extends BaseController {
 
 
   render(request: Request, res: Response, next: NextFunction) {
-    return res.render('application');
+    return res.render('application', {
+      title: 'Parser light - бесплатное приложение для сбора данных в интернет',
+      description: 'Скачайте исходный код парсера для автоматизации сбора данных в интернете'
+    });
   }
 }
