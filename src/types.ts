@@ -12,5 +12,6 @@ export const TYPES = {
   CasesController: Symbol.for('CasesController'),
   IUsersService: Symbol.for('IUsersService'),
   IConfigService: Symbol.for('IConfigService'), 
-  IUsersRepository: Symbol.for('IUsersRepository'),  
+  IUsersRepository: Symbol.for('IUsersRepository'),
+  ApplicationPage: Symbol.for('ApplicationPage'),  
 };

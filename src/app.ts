@@ -21,6 +21,7 @@ import { Page404Controller } from './page404/page404.controller';
 import { CasesController } from './cases/cases.controller';
 import { IConfigService } from './config/config.service.interface';
 import { AuthMiddleware } from './common/auth.middleware';
+import { ApplicationPage } from './apploication-page/application.page.controller';
 
 dotenv.config();
 
@@ -54,6 +55,7 @@ export class App {
     @inject(TYPES.Page404Controller) private page404Controller: Page404Controller,
     @inject(TYPES.CasesController) private casesController: CasesController,
     @inject(TYPES.IConfigService) private readonly configService: IConfigService,
+    @inject(TYPES.ApplicationPage) private readonly applicationPageController: ApplicationPage,
 
     ) {
     
@@ -79,6 +81,7 @@ export class App {
     this.app.use(this.contactPageController.router);
     this.app.use('/cases', this.casesController.router);
     this.app.use('/users', this.userController.router);
+    this.app.use(this.applicationPageController.router)
   }
 
   useMiddleware() {

@@ -22,6 +22,7 @@ import { IConfigService } from "./config/config.service.interface";
 import { ConfigService } from "./config/config.service";
 import { IUsersRepository } from "./users/users.repository.interface";
 import { UsersRepositiry } from "./users/users.repository";
+import { ApplicationPage } from "./apploication-page/application.page.controller";
 
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
   bind<ILogger>(TYPES.ILogger).to(LoggerService).inSingletonScope();
@@ -36,7 +37,8 @@ export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
   bind<CasesController>(TYPES.CasesController).to(CasesController);  
   bind<IUsersService>(TYPES.IUsersService).to(UserService);  
   bind<IConfigService>(TYPES.IConfigService).to(ConfigService).inSingletonScope();
-  bind<IUsersRepository>(TYPES.IUsersRepository).to(UsersRepositiry);  
+  bind<IUsersRepository>(TYPES.IUsersRepository).to(UsersRepositiry);
+  bind<ApplicationPage>(TYPES.ApplicationPage).to(ApplicationPage);
   bind<App>(TYPES.Application).to(App);
 });
 
