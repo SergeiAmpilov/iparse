@@ -45,6 +45,12 @@ export class SitemapService {
         changefreq: 'yearly',
         priority: 0.7
       },
+      {
+        loc: 'application',
+        lastmod: '2023-10-16',
+        changefreq: 'yearly',
+        priority: 0.7
+      },
     ];
 
 
